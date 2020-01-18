@@ -51,3 +51,11 @@ func ReadChatFile(pathname string) {
 	err = s.Err()
 	check(err)
 }
+
+func writeMessage(messages []Message) {
+	data, _ := json.MarshallIndent(messages, "", " ")
+	_ := ioutil.WriteFile("message_test.json", file, 0644)
+}
+
+
+
