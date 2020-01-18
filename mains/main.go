@@ -1,13 +1,12 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/astherath/parser"
 )
 
 func main() {
-	date := "[01/02/06, 03:04:05 PM]"
-	fmt.Println(parser.Parse(date))
+	pathname := "/Users/felipearce/Desktop/projects/python/data_science_tests/test_chat.txt"
+
+	parser.ReadChatFile(pathname)
 
 }
