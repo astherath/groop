@@ -1,7 +1,11 @@
 package parser
 
 import (
+	"bufio"
 	"errors"
+	"fmt"
+	"log"
+	"os"
 	"time"
 )
 
@@ -9,7 +13,13 @@ const (
 	layoutWhatsapp = "[01/02/06, 03:04:05 PM]"
 )
 
-func Parse(date string) (string, error) {
+func check(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+
+func ParseDate(date string) (string, error) {
 
 	t, err := time.Parse(layoutWhatsapp, date)
 	if err != nil {
@@ -17,4 +27,21 @@ func Parse(date string) (string, error) {
 	}
 
 	return t.String(), nil
+}
+
+func ReadChatFile(pathname string) {
+	file, err := os.Open(pathname)
+	check(err)
+	defer func() {
+		if err = file.Close(); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	s := bufio.NewScanner(file)
+	for s.Scan() {
+		fmt.Println(s.Text())
+	}
+	err = s.Err()
+	check(err)
 }
