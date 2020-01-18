@@ -9,6 +9,12 @@ import (
 	"time"
 )
 
+type Message struct {
+	Date   time.Time
+	Author string
+	Body   string
+}
+
 const (
 	layoutWhatsapp = "[01/02/06, 03:04:05 PM]"
 )
