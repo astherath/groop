@@ -44,11 +44,11 @@ func ReadChatFile(pathname string) {
 	s := bufio.NewScanner(file)
 	s.Split(crunchSplitFunc)
 	for s.Scan() {
-		fmt.Println("have written: ", i, " lines of data so far")
 		message, eof := parseraw_message(s.Text())
 		if !eof {
-			i++
 			messages = append(messages, message)
+			i++
+			fmt.Println("have written: ", i, " lines of data so far")
 		}
 	}
 	err = s.Err()
