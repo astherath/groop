@@ -76,15 +76,15 @@ func parseraw_message(raw_message string) (Message, bool) {
 	raw_date := strings.TrimSpace(raw_message[:end])
 
 	raw_message = raw_message[end:]
-	end = strings.IndexByte(raw_message, ':')
-	if debug {
-		fmt.Println("end2: ", end)
-	}
-	if end == -1 {
-		// TODO: handle different types of system messages
+	sysMessage, newMessage := classifySystemMessage(raw_message)
+	if sysMessage {
 		author = "System message"
-		body = strings.TrimSpace(raw_message)
+		body = newMessage
 	} else {
+		end = strings.IndexByte(raw_message, ':')
+		if debug {
+			fmt.Println("end2: ", end)
+		}
 		author = strings.TrimSpace(raw_message[:end])
 		body = strings.TrimSpace(raw_message[end+1:])
 	}
@@ -106,6 +106,18 @@ func parseraw_message(raw_message string) (Message, bool) {
 	}
 
 	return message, false
+}
+
+func classifySystemMessage(message string) (bool, string){
+	sysMessage := strings.Contains(message, "changed the subject to") ||
+		strings.Contains(message, "changed this group's icon") ||
+		strings.Contains(message, "changed the group description")
+
+	if sysMessage {
+		return true, message
+	} else {
+		return false, message
+	}
 }
 
 func parseDate(date string) (string, error) {
