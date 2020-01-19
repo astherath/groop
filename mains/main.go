@@ -5,7 +5,8 @@ import (
 )
 
 func main() {
-	pathname := "../test_chat.txt"
+	// pathname := "../test_chat.txt"
+	pathname := "../CHAT_ORIGINAL.txt"
 
 	parser.ReadChatFile(pathname)
 
