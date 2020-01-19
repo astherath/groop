@@ -37,5 +37,3 @@ db.once('open', function() {
 		}
 	});
 });
-
-
