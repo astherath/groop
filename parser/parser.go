@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
-	"log"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -38,24 +38,35 @@ func ParseDate(date string) (string, error) {
 func ReadChatFile(pathname string) {
 	file, err := os.Open(pathname)
 	check(err)
-	defer func() {
-		if err = file.Close(); err != nil {
-			log.Fatal(err)
-		}
-	}()
+	defer file.Close()
 
 	s := bufio.NewScanner(file)
 	for s.Scan() {
-		fmt.Println(s.Text())
+		writeMessage(s.Text())
 	}
 	err = s.Err()
 	check(err)
 }
 
-func writeMessage(messages []Message) {
-	data, _ := json.MarshallIndent(messages, "", " ")
-	_ := ioutil.WriteFile("message_test.json", file, 0644)
+func writeMessage(message string) {
+	// declaring vars inside statement
+	var author string
+	var body string
+
+	end := strings.IndexByte(message, ']') + 1
+	date := strings.TrimSpace(message[:end])
+	message = message[end:]
+	end = strings.IndexByte(message, ':')
+	if end == -1 {
+		author = "System message"
+		body = strings.TrimSpace(message)
+	} else {
+		author = strings.TrimSpace(message[:end])
+		body = strings.TrimSpace(message[end+1:])
+	}
+
+	fmt.Println("date: ", date, "\nauthor: ", author, "\nbody: ", body)
+
+	// data, _ := json.MarshallIndent(messages, "", " ")
+	// _ := ioutil.WriteFile("message_test.json", file, 0644)
 }
-
-
-
