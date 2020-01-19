@@ -66,6 +66,10 @@ func writeMessage(messages []Message) {
 }
 
 func parseraw_message(raw_message string) (Message, bool) {
+	// check for EOF
+	if len(raw_message) == 0 {
+		return Message{"", "", ""}, true
+	}
 	// declaring vars inside statement
 	var author string
 	var body string
@@ -73,10 +77,16 @@ func parseraw_message(raw_message string) (Message, bool) {
 	if debug {
 		fmt.Println("end1: ", end)
 	}
+	if end == 0 {
+		return Message{"", "", ""}, true
+	}
 	raw_date := strings.TrimSpace(raw_message[:end])
-
 	raw_message = raw_message[end:]
-	sysMessage, newMessage := classifySystemMessage(raw_message)
+
+	sysMessage, newMessage := classifySystemMessage(strings.TrimSpace(raw_message))
+	if debug {
+		fmt.Println("sysmes: ", sysMessage, "\nnewMess: ", newMessage, "\nraw_mess: ", raw_message)
+	}
 	if sysMessage {
 		author = "System message"
 		body = newMessage
@@ -108,10 +118,26 @@ func parseraw_message(raw_message string) (Message, bool) {
 	return message, false
 }
 
-func classifySystemMessage(message string) (bool, string){
+func classifySystemMessage(message string) (bool, string) {
+	removed := len(strings.Split(message, " ")) == 3 &&
+		strings.Contains(message, " removed ")
+	added := len(strings.Split(message, " ")) == 3 &&
+		(strings.Contains(message, " added ") || strings.Contains(message, " was added"))
+	left := len(strings.Split(message, " ")) == 2 &&
+		strings.Contains(message, " left")
+	if debug {
+		fmt.Println("len mess: ", len(strings.Split(message, " ")))
+		fmt.Println("rem?: ", strings.Contains(message, " removed "))
+		fmt.Println("add?: ", strings.Contains(message, " added "))
+		fmt.Println("left?: ", strings.Contains(message, " left"))
+	}
 	sysMessage := strings.Contains(message, "changed the subject to") ||
+		strings.Contains(message, "You're now an admin") ||
 		strings.Contains(message, "changed this group's icon") ||
-		strings.Contains(message, "changed the group description")
+		strings.Contains(message, "changed the group description") ||
+		strings.Contains(message, "deleted this group's icon") ||
+		strings.Contains(message, "changed their phone number to a new number. Tap to message or add the new number.") ||
+		removed || added || left
 
 	if sysMessage {
 		return true, message
@@ -121,13 +147,31 @@ func classifySystemMessage(message string) (bool, string){
 }
 
 func parseDate(date string) (string, error) {
-
+	day_date := strings.Split(date[1:strings.Index(date, ",")], "/")
+	for i, d := range day_date {
+		if len(d) == 1 {
+			day_date[i] = "0" + d
+		}
+	}
+	time_date := strings.Split(date[strings.Index(date, ",")+2:len(date)-4], ":")
+	for i, d := range time_date {
+		if len(d) == 1 {
+			time_date[i] = "0" + d
+		}
+	}
+	day_date_string := strings.Join(day_date, "/")
+	time_date_string := strings.Join(time_date, ":")
+	date = "[" + day_date_string + ", " + time_date_string + " " + date[len(date)-3:]
+	if debug {
+		fmt.Println("\ndate: ", date)
+	}
 	t, err := time.Parse(layoutWhatsapp, date)
+	check(err)
 	if err != nil {
 		t2, err2 := time.Parse(layoutWhatsapp1, date)
 		if err2 != nil {
 			if debug {
-				fmt.Println("date: ", date, "original error: ", err)
+				fmt.Println("date: ", date, "original error: ", err, "new err: ", err2)
 			}
 			return t.String(), err
 		}

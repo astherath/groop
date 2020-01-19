@@ -10,7 +10,7 @@ client = pymongo.MongoClient(URL)
 db = client.gc_data
 col = db.messages
 
-json_filename = 'message_test.json'
+json_filename = '../mains/message_test.json'
 
 
 # parse the json and add to the db
