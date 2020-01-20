@@ -1,40 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
+<html>
+ <head>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+ <script>
+$(document).ready(function(){
+    $('#submit').click(function(){
+        var author = document.getElementById("authorField").value;
+        var word = document.getElementById("wordField").value;
+        var url2 = 'http://felipearce.pw:3000/graph?author=' + author + '&word=' + word;
+        const Url='https://jsonplaceholder.typicode.com/posts';
+        $.ajax({
+            url: Url,
+            type: "GET",
+            success: function(result){
+                alert(result);
+            },
+            error:function(error){
+                alert(`error: ${error}`);
+            }
+        });
+//        $.getJSON(Url, function(result) {
+//            alert(result);
+//        });
+    });
+});
+ </script>
+ </head>
+ <body>
+<input type="text" id="authorField" placeholder="Author">
+<input type="text" id="wordField" placeholder="Word">
+<button id="submit" onclick="runFunction()">Submit</button>
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <title>GC Database Query</title>
-
-    <!-- Bootstrap core CSS -->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <script type="text/javascript" src="resources/client.js"></script>
-
-
-
-    </head>
-
-<body>
-	<img src="plot.png" width="1000" height="800"/>
-
-    </body>
+ </body>
 </html>
+
