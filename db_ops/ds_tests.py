@@ -47,7 +47,7 @@ if __name__ == '__main__':
     db = client.gc_data
     col = db.messages
 
-    word = 'ploopy'
+    word = 'nigga'
     dates = find_word(word)
     author = 'Babak'
     first = find_first_occurence(author, word)
@@ -58,6 +58,7 @@ if __name__ == '__main__':
     #  plt.plot(df['Date'], df['Mentions'])
     plt.xticks(rotation='vertical')
     ax.xaxis.set_major_locator(mdates.MonthLocator())
+    ax.autoscale(enable=True, axis='both', tight=False)
 
     #  setup(ax)
 
