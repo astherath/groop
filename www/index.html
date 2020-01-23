@@ -1,1 +1,30 @@
-<img src="plot.png">
+<html>
+ <head>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+ <script>
+$(document).ready(function(){
+    $('#submit').click(function(){
+        var word = document.getElementById("wordField").value;
+        var url2 = 'http://felipearce.pw:3000/find?word=' + word;
+        $.ajax({
+            url: url2,
+            type: "GET",
+            success: function(result){
+                alert(result);
+            },
+            error:function(error){
+                alert(`error: ${error}`);
+            }
+        });
+    });
+});
+ </script>
+ </head>
+ <body>
+<input type="text" id="wordField" placeholder="Word">
+<button id="submit" onclick="runFunction()">Submit</button>
+
+
+ </body>
+</html>
+

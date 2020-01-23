@@ -5,12 +5,18 @@ import matplotlib.dates as mdates
 import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
 import datetime
+import seaborn as sns
 import pymongo
 import scipy
 from scipy.interpolate import UnivariateSpline
 import numpy as np
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
+
+URL = 'mongodb://localhost:27017'
+client = pymongo.MongoClient(URL)
+db = client.gc_data
+col = db.messages
 
 def measure_relevance(date_list):
     # get the list of total messages
@@ -48,56 +54,39 @@ def find_word(word):
             date_list[date] = date_list[date] + 1
     keys = list(date_list.keys())
     vals = list(date_list.values())
-    max_val = max(vals)
-    max_date = keys[vals.index(max_val)]
     mention_count = len(vals)
     date_list = measure_relevance(date_list)
-    date_list = calculate_relevance(date_list, mention_count)
+    #  date_list = calculate_relevance(date_list, mention_count)
     return date_list
 
 def toTimestamp(d):
     return calendar.timegm(d.timetuple())
 
-if __name__ == '__main__':
-    URL = 'mongodb://localhost:27017'
-    client = pymongo.MongoClient(URL)
-    db = client.gc_data
-    col = db.messages
+def main_func(word1):
     fig = plt.figure(figsize=[10,6])
-
-    word1 = 'cringe'
-    word2 = 'nigger'
 
     dates = find_word(word1)
 
     df1 = pd.DataFrame(list(dates.items()), columns=['Date', 'Mentions'])
     df1 = df1.sort_values(by='Date', ascending=True)
 
-    #  dates = find_word(word2)
-    #  df2 = pd.DataFrame(list(dates.items()), columns=['Date', 'Mentions'])
-    #  df2 = df2.sort_values(by='Date', ascending=True)
+    y = df1.loc[:,'Mentions']
+    x = np.linspace(0,1,len(df1.loc[:, 'Mentions']))
+    poly_deg = 8
 
-    plt.plot(df1['Date'], df1['Mentions'], label=word1)
-    #  plt.plot(df2['Date'], df2['Mentions'], label=word2)
+    coeffs = np.polyfit(x, y * 10, poly_deg)
+
+    poly_eqn = np.poly1d(coeffs)
+    y_hat = poly_eqn(x)
+    plt.plot(df1.loc[:,'Date'], y_hat, label='Line of best fit')
+
 
     plt.legend(loc='upper right')
     plt.suptitle('Relevance of ' + word1 +' over time')
     plt.autoscale(enable=True, axis='both')
     plt.xlabel('Time')
     plt.ylabel('Relevance (mentions/total messages)')
-    x = list(dates.keys())
-    y = list(dates.values())
 
-    arr1 = np.array([toTimestamp(date_s) for date_s in x])
-    arr2 = np.arange(1, len(x) + 1)
-
-    f = scipy.interpolate.interp1d(arr1, arr2, kind='linear')
-
-    plt.plot(f)
-
-
-
-
-    fig.savefig('../www/plot.png',pdi=8000)
+    fig.savefig('www/plot.png',pdi=8000)
 
 
