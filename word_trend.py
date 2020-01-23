@@ -87,6 +87,7 @@ def main_func(word1):
     plt.xlabel('Time')
     plt.ylabel('Relevance (mentions/total messages)')
 
-    fig.savefig('www/plot.png',pdi=8000)
+    fig.savefig('www/plots.png',pdi=8000)
+    plt.close()
 
 

@@ -6,23 +6,40 @@ $(document).ready(function(){
     $('#submit').click(function(){
         var word = document.getElementById("wordField").value;
         var url2 = 'http://felipearce.pw:3000/find?word=' + word;
+	var x = document.getElementById("showButton");
         $.ajax({
             url: url2,
             type: "GET",
             success: function(result){
-                alert(result);
+		  if (x.style.display === "none") {
+		    x.style.display = "block";
+		  } else {
+		    x.style.display = "none";
+		  };
             },
             error:function(error){
-                alert(`error: ${error}`);
+		  if (x.style.display === "none") {
+		    x.style.display = "block";
+		  } else {
+		    x.style.display = "none";
+		  };
             }
         });
     });
 });
+
+function showImg() {
+	document.write('<img id="imgDiv" src="plots.png"/>');
+};
+
  </script>
  </head>
  <body>
 <input type="text" id="wordField" placeholder="Word">
 <button id="submit" onclick="runFunction()">Submit</button>
+<button style="display: none" id="showButton" onclick="showImg()">Show</button>
+
+
 
 
  </body>
