@@ -1,43 +1,75 @@
 <html>
  <head>
+	 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
  <script>
 $(document).ready(function(){
     $('#submit').click(function(){
         var word = document.getElementById("wordField").value;
-        var url2 = 'http://felipearce.pw:3000/find?word=' + word;
-	var x = document.getElementById("showButton");
+    	var check = document.getElementById("trueDataCheck").checked;
+        var url2 = 'http://felipearce.pw:3000/find?word=' + word + '&raw=' + check;
+	<!-- var x = document.getElementById("showButton"); -->
+	    $("img").remove();
         $.ajax({
             url: url2,
             type: "GET",
             success: function(result){
-		  if (x.style.display === "none") {
-		    x.style.display = "block";
-		  } else {
-		    x.style.display = "none";
-		  };
+		  <!-- if (x.style.display === "none") { -->
+		    <!-- x.style.display = "block"; -->
+		  <!-- } else { -->
+		    <!-- x.style.display = "none"; -->
+		  <!-- }; -->
+		    showImg();
             },
             error:function(error){
-		  if (x.style.display === "none") {
-		    x.style.display = "block";
-		  } else {
-		    x.style.display = "none";
-		  };
+		  <!-- if (x.style.display === "none") { -->
+		    <!-- x.style.display = "block"; -->
+		  <!-- } else { -->
+		    <!-- x.style.display = "none"; -->
+		  <!-- }; -->
+		    showImg();
             }
         });
     });
 });
 
 function showImg() {
-	document.write('<img id="imgDiv" src="plots.png"/>');
+    var img = document.createElement('img');
+    var time = performance.now();
+    img.src = "plots.png?" + time;
+    document.body.appendChild(img);
+	<!-- document.write('<img id="time" src="plots.png"/>'); -->
+	<!-- location.replace("plot.html") -->
 };
 
+$(document).ready(function() {
+  $('#wordField').keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+});
  </script>
  </head>
  <body>
-<input type="text" id="wordField" placeholder="Word">
-<button id="submit" onclick="runFunction()">Submit</button>
-<button style="display: none" id="showButton" onclick="showImg()">Show</button>
+<!-- <input type="text" id="wordField" placeholder="Word"> -->
+<!-- <button id="submit" onclick="runFunction()">Submit</button> -->
+
+<form id="prospects_form">
+  <div class="form-group">
+    <label >GC Data query service</label>
+    <input type="text" class="form-control" id="wordField"  placeholder="Ex. Hello" onclick="runFunction()">
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="trueDataCheck">
+    <label class="form-check-label">Display numerical data</label>
+  </div>
+  <button type="button" id="submit" onclick="runFunction()" class="btn btn-primary">Submit</button>
+</form>
+  <!-- <button style="display: none" id="showButton" onclick="showImg()">Show</button> -->
 
 
 

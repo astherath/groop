@@ -62,7 +62,7 @@ def find_word(word):
 def toTimestamp(d):
     return calendar.timegm(d.timetuple())
 
-def main_func(word1):
+def main_func(word1, raw):
     fig = plt.figure(figsize=[10,6])
 
     dates = find_word(word1)
@@ -80,12 +80,15 @@ def main_func(word1):
     y_hat = poly_eqn(x)
     plt.plot(df1.loc[:,'Date'], y_hat, label='Line of best fit')
 
+    if raw:
+        label_df = F'Times {word1} was mentioned'
+        plt.plot(df1['Date'], df1['Mentions'], label=label_df)
 
     plt.legend(loc='upper right')
     plt.suptitle('Relevance of ' + word1 +' over time')
     plt.autoscale(enable=True, axis='both')
     plt.xlabel('Time')
-    plt.ylabel('Relevance (mentions/total messages)')
+    plt.ylabel('Relevance')
 
     fig.savefig('www/plots.png',pdi=8000)
     plt.close()

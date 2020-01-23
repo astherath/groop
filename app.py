@@ -23,13 +23,13 @@ def index():
 @app.route('/find', methods=['GET'])
 def find_message():
     word = request.args.get('word')
-
-    print(F'word: {word}')
+    raw = request.args.get('raw')
+    raw = (raw == 'true')
 
     if word is None:
         return make_response(jsonify({'error': 'missing or invalid input'}), 400)
 
-    word_trend.main_func(word)
+    word_trend.main_func(word, raw)
     #  return '<img src=\"../www/plot.png\">'
     #  return app.send_static_file('../www/index.html')
     return make_response(jsonify({'welcome!': 'Sucessful default connection'}), 200)
@@ -37,4 +37,6 @@ def find_message():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000)
+
+
 
