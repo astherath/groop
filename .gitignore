@@ -1,5 +1,7 @@
 *.png
+*.txt
 www/node_modules/
 __pycache__/
+db_ops/run.sh
 
 
