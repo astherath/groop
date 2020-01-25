@@ -125,6 +125,10 @@ func classifySystemMessage(message string) (bool, string) {
 		(strings.Contains(message, " added ") || strings.Contains(message, " was added"))
 	left := len(strings.Split(message, " ")) == 2 &&
 		strings.Contains(message, " left")
+	image := strings.Contains(message, "image omitted")
+	audio := strings.Contains(message, "audio omitted")
+	video := strings.Contains(message, "video omitted")
+
 	if debug {
 		fmt.Println("len mess: ", len(strings.Split(message, " ")))
 		fmt.Println("rem?: ", strings.Contains(message, " removed "))
@@ -137,7 +141,7 @@ func classifySystemMessage(message string) (bool, string) {
 		strings.Contains(message, "changed the group description") ||
 		strings.Contains(message, "deleted this group's icon") ||
 		strings.Contains(message, "changed their phone number to a new number. Tap to message or add the new number.") ||
-		removed || added || left
+		removed || added || left || image || audio || video
 
 	if sysMessage {
 		return true, message

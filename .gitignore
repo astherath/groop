@@ -1,4 +1,7 @@
 *.png
+*.mod
+*.sum
+*.json
 *.txt
 www/node_modules/
 __pycache__/
