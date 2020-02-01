@@ -7,4 +7,10 @@ www/node_modules/
 __pycache__/
 db_ops/run.sh
 
-
+www/react-app/.DS_Store
+www/react-app/.merlin
+www/react-app/.bsb.lock
+www/react-app/npm-debug.log
+www/react-app/lib/bs/
+www/react-app/node_modules/
+www/react-app/bundleOutput/
