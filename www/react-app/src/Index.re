@@ -30,9 +30,15 @@ let makeContainer = text => {
 // All 4 examples.
 ReactDOMRe.render(
   <BlinkingGreeting>
-    {React.string("Hello!")}
+    {React.string("EZClap!")}
   </BlinkingGreeting>,
   makeContainer("Blinking Greeting"),
+);
+
+ReactDOMRe.render(
+	<Title title="Welcome">
+	</Title>,
+	makeContainer("Hello"),
 );
 
 ReactDOMRe.render(

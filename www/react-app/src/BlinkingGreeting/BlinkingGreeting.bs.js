@@ -14,7 +14,7 @@ function BlinkingGreeting(Props) {
                   return Curry._1(setShow, (function (previousShow) {
                                 return !previousShow;
                               }));
-                }), 1000);
+                }), 100);
           return (function (param) {
                     clearInterval(id);
                     return /* () */0;

@@ -8,7 +8,7 @@ let make = (~children) => {
     let id =
       Js.Global.setInterval(
         () => setShow(previousShow => !previousShow),
-        1000,
+        100,
       );
 
     Some(() => Js.Global.clearInterval(id));
