@@ -45,7 +45,7 @@ let make = () => {
 		QueryFormHook.useForm(
 			~initialState={query: ""},
 			~onSubmit=(state, form) => {
-				Js.log("inputted this") //XXX put in query string here
+				Js.log("inputted this" ++ state.query) //XXX put in query string here
 			},
 		);
 	// now form the actual jsx form
@@ -70,7 +70,18 @@ let make = () => {
 			| Some(Ok(Valid | NoValue))
 			| None => React.null
 			}}
-		<button disabled={form.submitting}>
+		<div style={ReactDOMRe.Style.make(
+				~height="10px",
+				()
+		)}/>
+		<button
+		style={ReactDOMRe.Style.make(
+				~height="50px",
+				~width="80px",
+				~color="blue",
+				(),
+		)}
+		disabled={form.submitting}>
 			(form.submitting ? "Submitting..." : "Submit") -> React.string
 		</button>
 	</form>;

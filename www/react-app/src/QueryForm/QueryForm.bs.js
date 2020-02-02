@@ -51,7 +51,7 @@ function QueryForm$1(Props) {
   var form = Curry._2(QueryFormHook.useForm, {
         query: ""
       }, (function (state, form) {
-          console.log("inputted this");
+          console.log("inputted this" + state.query);
           return /* () */0;
         }));
   var partial_arg = form.submit;
@@ -81,7 +81,16 @@ function QueryForm$1(Props) {
                                     query: $$event.target.value
                                   }));
                     })
-                }), tmp, React.createElement("button", {
+                }), tmp, React.createElement("div", {
+                  style: {
+                    height: "10px"
+                  }
+                }), React.createElement("button", {
+                  style: {
+                    color: "blue",
+                    height: "50px",
+                    width: "80px"
+                  },
                   disabled: form.submitting
                 }, match$2 ? "Submitting..." : "Submit"));
 }
