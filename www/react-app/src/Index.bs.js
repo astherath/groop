@@ -2,10 +2,8 @@
 
 var React = require("react");
 var ReactDom = require("react-dom");
-var Title$ReasonReactExamples = require("./Title/Title.bs.js");
+var QueryForm$ReasonReactExamples = require("./QueryForm/QueryForm.bs.js");
 var ExampleStyles$ReasonReactExamples = require("./ExampleStyles.bs.js");
-var BlinkingGreeting$ReasonReactExamples = require("./BlinkingGreeting/BlinkingGreeting.bs.js");
-var FetchedDogPictures$ReasonReactExamples = require("./FetchedDogPictures/FetchedDogPictures.bs.js");
 var ReducerFromReactJSDocs$ReasonReactExamples = require("./ReducerFromReactJSDocs/ReducerFromReactJSDocs.bs.js");
 var ReasonUsingJSUsingReason$ReasonReactExamples = require("./ReasonUsingJSUsingReason/ReasonUsingJSUsingReason.bs.js");
 
@@ -29,19 +27,11 @@ function makeContainer(text) {
   return content;
 }
 
-ReactDom.render(React.createElement(BlinkingGreeting$ReasonReactExamples.make, {
-          children: "EZClap!"
-        }), makeContainer("Blinking Greeting"));
-
-ReactDom.render(React.createElement(Title$ReasonReactExamples.make, {
-          title: "Welcome"
-        }), makeContainer("Hello"));
-
 ReactDom.render(React.createElement(ReducerFromReactJSDocs$ReasonReactExamples.make, { }), makeContainer("Reducer From ReactJS Docs"));
 
-ReactDom.render(React.createElement(FetchedDogPictures$ReasonReactExamples.make, { }), makeContainer("Fetched Dog Pictures"));
-
 ReactDom.render(React.createElement(ReasonUsingJSUsingReason$ReasonReactExamples.make, { }), makeContainer("Reason Using JS Using Reason"));
+
+ReactDom.render(React.createElement(QueryForm$ReasonReactExamples.make, { }), makeContainer("Reason Using JS Using Reason"));
 
 exports.style = style;
 exports.makeContainer = makeContainer;

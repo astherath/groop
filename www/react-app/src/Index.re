@@ -29,29 +29,21 @@ let makeContainer = text => {
 
 // All 4 examples.
 ReactDOMRe.render(
-  <BlinkingGreeting>
-    {React.string("EZClap!")}
-  </BlinkingGreeting>,
-  makeContainer("Blinking Greeting"),
-);
-
-ReactDOMRe.render(
-	<Title title="Welcome">
-	</Title>,
-	makeContainer("Hello"),
-);
-
-ReactDOMRe.render(
   <ReducerFromReactJSDocs />,
   makeContainer("Reducer From ReactJS Docs"),
 );
 
 ReactDOMRe.render(
-  <FetchedDogPictures />,
-  makeContainer("Fetched Dog Pictures"),
+  <ReasonUsingJSUsingReason />,
+  makeContainer("Reason Using JS Using Reason"),
 );
 
+/* ReactDOMRe.render( */
+  /* <QueryField /> */
+  /* makeContainer("Query"), */
+/* ); */
+
 ReactDOMRe.render(
-  <ReasonUsingJSUsingReason />,
+  <QueryForm />,
   makeContainer("Reason Using JS Using Reason"),
 );
