@@ -1,3 +1,29 @@
+// fetch module
+open Belt;
+type res = string;
+
+// make decoder
+module Decode = {
+	let ress = json: array(res) =>
+		Json.Decode.(
+			json |> field("message", array(string)) |> Array.map(_, res => res)
+		);
+};
+
+
+
+
+let url = "http://felipearce.pw:3000/";
+let fetchReponse = () =>
+	Js.Promise.(
+		Fetch.fetch(url)
+		|> then_(Fetch.Response.text)
+		|> then_(text => Js.log(text) |> resolve)
+	);
+
+
+
+
 module QueryForm = {
 	open Formality;
 
@@ -45,7 +71,12 @@ let make = () => {
 		QueryFormHook.useForm(
 			~initialState={query: ""},
 			~onSubmit=(state, form) => {
-				Js.log("inputted this" ++ state.query) //XXX put in query string here
+				Js.Promise.(
+				Fetch.fetch("http://felipearce.pw:3000/")
+				|> then_(Fetch.Response.text)
+				|> then_(text => Js.log(text) |> resolve)
+				);
+				Js.log("inputted this" ++ state.query)
 			},
 		);
 	// now form the actual jsx form

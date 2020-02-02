@@ -3,8 +3,33 @@
 var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
+var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
+var Json_decode = require("@glennsl/bs-json/src/Json_decode.bs.js");
 var Formality__Form = require("re-formality/src/Formality__Form.bs.js");
 var Formality__PublicHelpers = require("re-formality/src/Formality__PublicHelpers.bs.js");
+
+function ress(json) {
+  var __x = Json_decode.field("message", (function (param) {
+          return Json_decode.array(Json_decode.string, param);
+        }), json);
+  return Belt_Array.map(__x, (function (res) {
+                return res;
+              }));
+}
+
+var Decode = {
+  ress: ress
+};
+
+var url = "http://felipearce.pw:3000/";
+
+function fetchReponse(param) {
+  return fetch(url).then((function (prim) {
+                  return prim.text();
+                })).then((function (text) {
+                return Promise.resolve((console.log(text), /* () */0));
+              }));
+}
 
 function update(state, value) {
   return {
@@ -51,6 +76,11 @@ function QueryForm$1(Props) {
   var form = Curry._2(QueryFormHook.useForm, {
         query: ""
       }, (function (state, form) {
+          fetch("http://felipearce.pw:3000/").then((function (prim) {
+                    return prim.text();
+                  })).then((function (text) {
+                  return Promise.resolve((console.log(text), /* () */0));
+                }));
           console.log("inputted this" + state.query);
           return /* () */0;
         }));
@@ -97,6 +127,9 @@ function QueryForm$1(Props) {
 
 var make = QueryForm$1;
 
+exports.Decode = Decode;
+exports.url = url;
+exports.fetchReponse = fetchReponse;
 exports.QueryForm = QueryForm;
 exports.QueryFormHook = QueryFormHook;
 exports.make = make;
