@@ -1,96 +1,89 @@
 import pandas as pd
-import operator
-import calendar
-import matplotlib.dates as mdates
-import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
 import datetime
-import seaborn as sns
 import pymongo
-import scipy
-from scipy.interpolate import UnivariateSpline
 import numpy as np
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
+# initialize mongo instance and set global collection variables
 URL = 'mongodb://localhost:27017'
 client = pymongo.MongoClient(URL)
 db = client.gc_data
 col = db.messages
 
+#
 def measure_relevance(date_list):
-    # get the list of total messages
+    # populate a list with every day from the first message to the most recent one
+    # TODO: parse first and last message dates instead of hardcoding it!!
     m_date = datetime.datetime(2015, 7, 6, 23, 59, 59)
     last = datetime.datetime(2020, 1, 18, 23, 59, 59)
     delta = (last - m_date).days
     master_dates = {}
+    # populate dictionary with dates and default values of 0
     for num in range(1, delta + 1):
         master_dates[m_date] = 0
         m_date = m_date + datetime.timedelta(days=1)
 
+    # map the amount of times word was said on a day to the date dictionary
     for date, mentions in date_list.items():
         new_date = datetime.datetime.combine(date, datetime.time(23,59,59))
-        prev = new_date - datetime.timedelta(days=1)
-        next_d = new_date + datetime.timedelta(days=1)
-        # get total messages said that day
-        #  relevance = col.find({'Date': {'$gt': prev, '$lt': next_d}}).count()
-        master_dates[new_date] = mentions #(mentions / relevance) * 100
+        master_dates[new_date] = mentions
+    # returns dict with keys=every day in span, and values=amount of times word was said on date
     return master_dates
 
-def calculate_relevance(date_list, mention_count):
-    for key, value in date_list.items():
-        date_list[key] = (value / mention_count) * 100
-    return date_list
-
-# lookup word
+# db method that finds amount of times word was said and maps it to a dictionary with dates
 def find_word(word):
+    # using $text index, finds every time word was said and it's date
     docs = col.find({'$text': {'$search': word}}, {'_id': 0, 'Date': 1})
     date_list = {}
+    # iterates through the messages and maps the times a word was said to a single date
     for document in docs:
         date = document['Date'].date()
         if date not in date_list:
             date_list[date] = 1
         else:
             date_list[date] = date_list[date] + 1
-    keys = list(date_list.keys())
-    vals = list(date_list.values())
-    mention_count = len(vals)
+    # calls measure_relevance method to update the date_list with ALL the dates, and returns it
     date_list = measure_relevance(date_list)
-    #  date_list = calculate_relevance(date_list, mention_count)
     return date_list
 
-def toTimestamp(d):
-    return calendar.timegm(d.timetuple())
-
-def main_func(word1, raw):
+# takes in a string (word), and a boolean (raw), and generates the plot
+def main_func(word, raw):
+    # set size of plot initially
     fig = plt.figure(figsize=[10,6])
+    # dates => dictionary with all days in chat history and how many times word was mentioned on that date
+    dates = find_word(word)
 
-    dates = find_word(word1)
+    # creates pd.DataFrame to plot with labels (instead of dict)
+    df = pd.DataFrame(list(dates.items()), columns=['Date', 'Mentions'])
+    df = df.sort_values(by='Date', ascending=True)
 
-    df1 = pd.DataFrame(list(dates.items()), columns=['Date', 'Mentions'])
-    df1 = df1.sort_values(by='Date', ascending=True)
-
-    y = df1.loc[:,'Mentions']
-    x = np.linspace(0,1,len(df1.loc[:, 'Mentions']))
+    # setup DataFrame so it can be modeled by Numpy polyfit
+    y = df.loc[:,'Mentions']
+    x = np.linspace(0,1,len(df.loc[:, 'Mentions']))
+    # polynomial degrees > 10 give weird results, 8 is default
     poly_deg = 8
-
     coeffs = np.polyfit(x, y * 10, poly_deg)
-
     poly_eqn = np.poly1d(coeffs)
     y_hat = poly_eqn(x)
-    plt.plot(df1.loc[:,'Date'], y_hat, label='Line of best fit')
+    # plot np.polyfit here and label it
+    plt.plot(df.loc[:,'Date'], y_hat, label='Line of best fit')
 
+    # if raw data was requested, plot the original DataFrame as well
     if raw:
-        label_df = F'Times {word1} was mentioned'
-        plt.plot(df1['Date'], df1['Mentions'], label=label_df)
+        label_df = F'Times {word} was mentioned'
+        plt.plot(df['Date'], df['Mentions'], label=label_df)
 
+    # setup the plot to look nicer
     plt.legend(loc='upper right')
-    plt.suptitle('Relevance of ' + word1 +' over time')
+    plt.suptitle('Relevance of ' + word +' over time')
+    # XXX maybe autoscale should be off?
     plt.autoscale(enable=True, axis='both')
     plt.xlabel('Time')
-    plt.ylabel('Relevance')
+    plt.ylabel('Mentions')
 
+    # TODO: non-static filepath for serving multiple instances (use rand() to append metadata)
+    # save to png with set dpi, and close plt
     fig.savefig('www/plots.png',pdi=8000)
     plt.close()
-
-
