@@ -27,9 +27,10 @@ All of the problems were with the data itself, so almost all of the time was spe
 
 ## Future Features
 (Listed in order of expected implementation date)
-1. Plot messages over time for a single participant
-2. Multiple group chat files per user
-3. Timeline of addition/removal of participants from chat
+1. Create and export word cloud
+2. Plot messages over time for a single participant
+3. Multiple group chat files per user
+4. Timeline of addition/removal of participants from chat
 
 ## Feedback
 If any unexpected or strange behavior occurs please open an issue request and it'll get sorted out quickly.

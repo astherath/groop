@@ -1,4 +1,5 @@
 *.png
+*.sh
 *.ini
 *.mod
 *.sum
@@ -6,7 +7,7 @@
 *.txt
 www/node_modules/
 __pycache__/
-db_ops/run.sh
+data_vis/run.sh
 
 www/react-app/.DS_Store
 www/react-app/.merlin
