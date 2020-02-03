@@ -10,25 +10,15 @@ $(document).ready(function(){
         var word = document.getElementById("wordField").value;
     	var check = document.getElementById("trueDataCheck").checked;
         var url2 = 'http://felipearce.pw:3000/find?word=' + word + '&raw=' + check;
-	<!-- var x = document.getElementById("showButton"); -->
 	    $("img").remove();
         $.ajax({
             url: url2,
             type: "GET",
             success: function(result){
-		  <!-- if (x.style.display === "none") { -->
-		    <!-- x.style.display = "block"; -->
-		  <!-- } else { -->
-		    <!-- x.style.display = "none"; -->
-		  <!-- }; -->
 		    showImg();
             },
             error:function(error){
-		  <!-- if (x.style.display === "none") { -->
-		    <!-- x.style.display = "block"; -->
-		  <!-- } else { -->
-		    <!-- x.style.display = "none"; -->
-		  <!-- }; -->
+
 		    showImg();
             }
         });
