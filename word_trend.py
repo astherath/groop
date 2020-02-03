@@ -85,5 +85,5 @@ def main_func(word, raw):
 
     # TODO: non-static filepath for serving multiple instances (use rand() to append metadata)
     # save to png with set dpi, and close plt
-    fig.savefig('www/plots.png',pdi=8000)
+    fig.savefig('frontend/imgs/plot.png',pdi=8000)
     plt.close()
