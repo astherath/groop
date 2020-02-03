@@ -21,7 +21,7 @@ Whenever working with unprocessed, raw, real-life data, there were a few challen
 - Contact names with emojis in them
 - System messages (adding or removing participants, omitted media, chat title changes, etc.)
 - Multi-line messages
-- Inconsistend date formatting
+- Inconsistent date formatting
 
 All of the problems were with the data itself, so almost all of the time was spent writing processes to help sanitize the data. The most important solutions involved using regex to sanitize the contact names of emojis, and using variable width date parsers in Go.
 
