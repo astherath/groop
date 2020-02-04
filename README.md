@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="http://felipearce.pw"><img src="icon.svg" alt="groop" width="400"></a>
+  <a href="http://felipearce.pw" target="_blank"><img src="icon.svg" alt="groop" width="400"></a>
   <br>
   Groop message analytics tool
   <br>
