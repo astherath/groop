@@ -1,4 +1,11 @@
-# Data Visualizer
+<h1 align="center">
+  <br>
+  <a href="http://felipearce.pw"><img src="icon.svg" alt="groop" width="400"></a>
+  <br>
+  Groop message analytics tool
+  <br>
+</h1>
+
 Web-based tool that can process, parse, and query a chat log file from a WhatsApp groupchat.
 
 [Now in open beta.](http://felipearce.pw)
