@@ -29,21 +29,6 @@ let makeContainer = text => {
 
 // All 4 examples.
 ReactDOMRe.render(
-  <ReducerFromReactJSDocs />,
-  makeContainer("Reducer From ReactJS Docs"),
-);
-
-ReactDOMRe.render(
-  <ReasonUsingJSUsingReason />,
-  makeContainer("Reason Using JS Using Reason"),
-);
-
-/* ReactDOMRe.render( */
-  /* <QueryField /> */
-  /* makeContainer("Query"), */
-/* ); */
-
-ReactDOMRe.render(
   <QueryForm />,
-  makeContainer("Reason Using JS Using Reason"),
+  makeContainer("QueryForm made using reformality"),
 );

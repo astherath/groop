@@ -3,16 +3,13 @@
 *.ini
 *.mod
 *.sum
-*.json
-*.txt
-www/node_modules/
 __pycache__/
 data_vis/run.sh
 
-www/react-app/.DS_Store
-www/react-app/.merlin
-www/react-app/.bsb.lock
-www/react-app/npm-debug.log
-www/react-app/lib/bs/
-www/react-app/node_modules/
-www/react-app/bundleOutput/
+frontend/react-app/.DS_Store
+frontend/react-app/.merlin
+frontend/react-app/.bsb.lock
+frontend/react-app/npm-debug.log
+frontend/react-app/lib/bs/
+frontend/react-app/node_modules/
+frontend/react-app/bundleOutput/

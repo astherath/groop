@@ -4,8 +4,6 @@ var React = require("react");
 var ReactDom = require("react-dom");
 var QueryForm$ReasonReactExamples = require("./QueryForm/QueryForm.bs.js");
 var ExampleStyles$ReasonReactExamples = require("./ExampleStyles.bs.js");
-var ReducerFromReactJSDocs$ReasonReactExamples = require("./ReducerFromReactJSDocs/ReducerFromReactJSDocs.bs.js");
-var ReasonUsingJSUsingReason$ReasonReactExamples = require("./ReasonUsingJSUsingReason/ReasonUsingJSUsingReason.bs.js");
 
 var style = document.createElement("style");
 
@@ -27,11 +25,7 @@ function makeContainer(text) {
   return content;
 }
 
-ReactDom.render(React.createElement(ReducerFromReactJSDocs$ReasonReactExamples.make, { }), makeContainer("Reducer From ReactJS Docs"));
-
-ReactDom.render(React.createElement(ReasonUsingJSUsingReason$ReasonReactExamples.make, { }), makeContainer("Reason Using JS Using Reason"));
-
-ReactDom.render(React.createElement(QueryForm$ReasonReactExamples.make, { }), makeContainer("Reason Using JS Using Reason"));
+ReactDom.render(React.createElement(QueryForm$ReasonReactExamples.make, { }), makeContainer("QueryForm made using reformality"));
 
 exports.style = style;
 exports.makeContainer = makeContainer;
