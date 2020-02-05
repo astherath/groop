@@ -4,7 +4,7 @@ import pymongo
 from flask import Flask, jsonify, request, make_response
 
 # init flask app
-app = Flask(__name__, template_folder='www')
+app = Flask(__name__)
 
 # XXX dont forget to take this out in finished version
 app.config['DEBUG'] = False
@@ -40,4 +40,4 @@ def find_message():
     return make_response(jsonify({'Success': 'Plot generated correctly'}), 200)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000)
+    app.run(host='0.0.0.0', port=3000, ssl_context=('/etc/letsencrypt/live/felipearce.pw/fullchain.pem', '/etc/letsencrypt/live/felipearce.pw/privkey.pem'))
