@@ -1,24 +1,26 @@
 <html>
  <head>
-	 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
  <script>
 $(document).ready(function(){
     $('#submit').click(function(){
         var word = document.getElementById("wordField").value;
     	var check = document.getElementById("trueDataCheck").checked;
-        var url2 = 'http://felipearce.pw:3000/find?word=' + word + '&raw=' + check;
+        var url2 = 'https://felipearce.pw:3000/find?word=' + word + '&raw=' + check;
 	    $("img").remove();
         $.ajax({
             url: url2,
             type: "GET",
             success: function(result){
+		    console.log("called to api: " + url2);
 		    showImg();
             },
             error:function(error){
-
+		    console.log("called to api: " + url2);
 		    showImg();
             }
         });
@@ -43,25 +45,17 @@ $(document).ready(function() {
  </script>
  </head>
  <body>
-<!-- <input type="text" id="wordField" placeholder="Word"> -->
-<!-- <button id="submit" onclick="runFunction()">Submit</button> -->
-
 <form id="prospects_form">
   <div class="form-group">
     <label >GC Data query service</label>
-    <input type="text" class="form-control" id="wordField"  placeholder="Ex. Hello" onclick="runFunction()">
+    <input type="text" class="form-control" id="wordField"  placeholder="Ex. Hello" >
   </div>
   <div class="form-group form-check">
     <input type="checkbox" class="form-check-input" id="trueDataCheck">
     <label class="form-check-label">Display numerical data</label>
   </div>
-  <button type="button" id="submit" onclick="runFunction()" class="btn btn-primary">Submit</button>
+  <button type="button" id="submit" class="btn btn-primary">Submit</button>
 </form>
-  <!-- <button style="display: none" id="showButton" onclick="showImg()">Show</button> -->
-
-
-
-
  </body>
 </html>
 
