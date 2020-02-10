@@ -12,7 +12,7 @@ $(document).ready(function(){
         var url = 'https://felipearce.pw:3000/signup' + endpoint;
         console.log(url)
         let request = new XMLHttpRequest();
-        request.open('GET', url, true);
+        request.open('POST', url, true);
         request.withCredentials = false;
         request.responseType = 'json';
         request.onload = function() {
