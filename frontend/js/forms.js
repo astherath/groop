@@ -25,15 +25,15 @@ $(document).ready(function(){
                 {
                     window.location.replace("https://felipearce.pw/dashboard.html");
                 }
-            else if (request.status == 404)
+            else if (request.status == 404 && !error)
                 {
                     document.getElementById("error-text").innerHTML = "User not found";
                 }
-            else if (request.status == 400)
+            else if (request.status == 400 && !error)
                 {
                     document.getElementById("error-text").innerHTML = "Incorrect Password";
                 }
-            else if (request.status == 500)
+            else if (request.status == 500 && !error)
                 {
                     document.getElementById("error-text").innerHTML = "Error, please try again in a few minutes";
                 }
