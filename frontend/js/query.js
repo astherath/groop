@@ -1,6 +1,6 @@
 $(document).ready(function(){    
+    $("#plot-section").hide();
     $('#query-submit').click(function(){
-        var plot = document.getElementById("plot-section")
         var word = document.getElementById("query-field").value;
         var raw = document.getElementById("raw-data").value;
         var endpoint = '?word=' + word + '&raw=' + raw;
@@ -14,12 +14,7 @@ $(document).ready(function(){
             console.log(request.response);
             if (request.status == 200)
                 {
-                    // if hidden, display
-                    if (plot.style["display"].localeCompare("none"))
-                        {
-                            plot.style["display"] = "contents";
-                        }
-                    // else do nothing
+                    $("#plot-section").show();
                 }
             else 
                 {
