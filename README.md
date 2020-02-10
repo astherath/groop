@@ -24,7 +24,7 @@ All data stored in a local MongoDB instance, using the Pymongo driver for querie
 ![Structure of service](architecture.png)
 
 ## Design Challenges
-Whenever working with unprocessed, raw, real-life data, there were a few challenges to overcome. Such as:
+As is expected whenever working with real-life data, there were a few challenges to overcome. Such as:
 - Contact names with emojis in them
 - System messages (adding or removing participants, omitted media, chat title changes, etc.)
 - Multi-line messages

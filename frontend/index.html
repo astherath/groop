@@ -1,67 +1,155 @@
-<html>
- <head>
-	 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-	 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
- <script>
-$(document).ready(function(){
-    $('#submit').click(function(){
-        var word = document.getElementById("wordField").value;
-    	var check = document.getElementById("trueDataCheck").checked;
-        var url2 = 'http://felipearce.pw:3000/find?word=' + word + '&raw=' + check;
-	    $("img").remove();
-        $.ajax({
-            url: url2,
-            type: "GET",
-            success: function(result){
-		    showImg();
-            },
-            error:function(error){
+<!DOCTYPE html>
+<html lang="en">
 
-		    showImg();
-            }
-        });
-    });
-});
+<head>
 
-function showImg() {
-    var img = document.createElement('img');
-    var time = performance.now();
-    img.src = "imgs/plot.png?" + time;
-    document.body.appendChild(img);
-};
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-$(document).ready(function() {
-  $('#wordField').keydown(function(event){
-    if(event.keyCode == 13) {
-      event.preventDefault();
-      return false;
-    }
-  });
-});
- </script>
- </head>
- <body>
-<!-- <input type="text" id="wordField" placeholder="Word"> -->
-<!-- <button id="submit" onclick="runFunction()">Submit</button> -->
+  <title>Groop - Data Visualizer</title>
 
-<form id="prospects_form">
-  <div class="form-group">
-    <label >GC Data query service</label>
-    <input type="text" class="form-control" id="wordField"  placeholder="Ex. Hello" onclick="runFunction()">
-  </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="trueDataCheck">
-    <label class="form-check-label">Display numerical data</label>
-  </div>
-  <button type="button" id="submit" onclick="runFunction()" class="btn btn-primary">Submit</button>
-</form>
-  <!-- <button style="display: none" id="showButton" onclick="showImg()">Show</button> -->
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+  <!-- Custom fonts for this template -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
+  <!-- Plugin CSS -->
+  <link rel="stylesheet" href="device-mockups/device-mockups.min.css">
 
+  <!-- Custom styles for this template -->
+  <link href="css/new-age.css" rel="stylesheet">
 
- </body>
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Groop</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="https://felipearce.pw/signup">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#features">Features</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="masthead">
+    <div class="container h-150">
+        
+      <div class="row h-140">
+          <div class="col-sm-6 mx-auto">
+          <img id="main-logo" src="icon-white.svg"></div>
+        <div class="col-md-7 mx-auto">
+          <div class="header-content my-auto">
+            <h1 class="mb-5">Visualize your WhatsApp message data over time.</h1>
+            <a href="https://felipearce.pw/signup" class="btn btn-outline btn-xl js-scroll-trigger">Sign Up Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="download bg-primary text-center" id="download">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <h2 class="section-heading" style="text-align: left">Real data, <br> Real analysis.</h2>
+          <p>Sign up, add your text logs, and generate your own graphs in real-time.</p>
+          <div class="badges">
+              <a href="#features" class="btn btn-outline btn-xl js-scroll-trigger">Learn More</a>
+            <a href="https://felipearce.pw/signup" class="btn btn-outline btn-xl js-scroll-trigger">Sign up</a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-heading text-center">
+        <h2>Data visualization made easy</h2>
+        <p class="text-muted">Queries, word clouds, and more.</p>
+        <hr>
+      </div>
+        <div class="col-lg-8 mx-auto">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="feature-item">
+                  <i class="icon-graph text-primary"></i>
+                  <h3>Word trends</h3>
+                  <p class="text-muted">Query your chat logs and generate graphs to track the usage of a word over time</p>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="feature-item">
+                  <i class="fa fa-cloud text-primary"></i>
+                  <h3>Word cloud generation <br>(Coming soon) </h3>
+                  <p class="text-muted">Instantly create a high-definition word cloud for the entire chat log</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <section class="contact bg-primary" id="contact">
+    <div class="container">
+      <h2>Open source with
+        <i class="fas fa-heart"></i>
+        </h2>
+      <ul class="list-inline list-social">
+        <li class="list-inline-item social-github">
+          <a href="https://github.com/astherath/groop">
+            <i class="fab fa-github"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; Felipe Arce 2020</p>
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <a href="https://felipearce.pw/privacy">Privacy</a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/new-age.min.js"></script>
+
+</body>
+
 </html>
-

@@ -3,13 +3,11 @@
 *.ini
 *.mod
 *.sum
+*.svg
 __pycache__/
 data_vis/run.sh
 
-frontend/react-app/.DS_Store
-frontend/react-app/.merlin
-frontend/react-app/.bsb.lock
-frontend/react-app/npm-debug.log
-frontend/react-app/lib/bs/
-frontend/react-app/node_modules/
-frontend/react-app/bundleOutput/
+frontend/img
+frontend/imgs
+frontend/scss
+frontend/vendor
