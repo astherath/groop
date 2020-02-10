@@ -11,10 +11,7 @@ $(document).ready(function(){
         request.onload = function() {
             console.log(request.response);
         };
-        
         request.send();
-        
-         return false;
+        return false;
     });
-   
 });

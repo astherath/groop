@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="css/master.css">
       
       <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/signup.js"></script>
 
         </head>
   <body>
@@ -17,29 +19,27 @@
       <h1><img src="icon-white.svg" style="height: 200px;"></h1>
       <form>
         <!-- USERNAME INPUT -->
-        <label for="username">Username</label>
-        <input type="text" placeholder="Enter Username">
-          <label for="username">Email</label>
-        <input type="text" placeholder="Enter Email">
+        <label  for="username">Username</label>
+        <input id="signup-user" type="text" placeholder="Enter Username">
+          <label  for="username">Email</label>
+        <input id="signup-email" type="text" placeholder="Enter Email">
         <!-- PASSWORD INPUT -->
-        <label for="password">Password</label>
-        <input type="password" placeholder="Enter Password">
-          <label for="password">Confirm Password</label>
-        <input type="password" placeholder="Enter Password Again">
-        <input type="submit" value="Sign up">
+        <label  for="password">Password</label>
+        <input id="signup-pwd" type="password" placeholder="Enter Password">
+          <label  for="password">Confirm Password</label>
+        <input id="signup-pwd-conf" type="password" placeholder="Enter Password Again">
+        <input id="signup-submit" type="submit" value="Sign up" >
       </form>
           </div>
     
       
       <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
+  
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Plugin JavaScript -->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for this template -->
-  <script src="js/new-age.min.js"></script>
+      
+      
+      
       
   </body>
 </html>
