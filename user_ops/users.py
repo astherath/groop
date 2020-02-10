@@ -28,7 +28,7 @@ def register_user():
         email = request.args.get('email')
     except Exception as e:
         print('exception:', e)
-        return make_response({'Error': 'Invalid or missing input'}, 400)
+        return make_response({'Missing': 'Invalid or missing input'}, 400)
     # make user
     user = create_user(username, pwd, email)
     col.insert_one(user)
@@ -48,7 +48,7 @@ def login_user():
     user = col.find_one({'username': username}, {'_id': 0, 'pwd': 1})
     # return 400 if user doesnt exist
     if (user is None):
-        return make_request({'Error': 'User not found'}, 400)
+        return make_response({'Error': 'User not found'}, 404)
     # hash pwd and compare
     match = bcrypt.checkpw(pwd.encode('utf-8'), user['pwd'])
 
