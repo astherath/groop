@@ -17,7 +17,7 @@ $(document).ready(function(){
         request.responseType = 'json';
         request.onload = function() {
             console.log(request.response);
-            
+
             if (request.status == 200)
                 {
                     window.location.replace("https://felipearce.pw/dashboard.html");
@@ -28,8 +28,8 @@ $(document).ready(function(){
                 }
         };
         request.send();
-        return true;
+        return false;
     });
-   
-    
+
+
 });
