@@ -1,33 +1,26 @@
-<!DOCTYPE HTML>
-<html lang="en" >
+<!DOCTYPE html>
 <html>
-<head>
-  <title>Sign Up</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="css/signup_style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <title>Groop - Login</title>
+    <link rel="stylesheet" href="css/master.css">
+  </head>
+  <body>
 
-<body class="body">
-
-<div class="login-page">
-  <div class="form">
-
-    <form>
-      <input type="text" placeholder="full name"/>
-      <input type="text" placeholder="email address"/>
-      <input type="text" placeholder="pick a username"/>
-      <input type="password" placeholder="set a password"/>
-
-    </form>
-
-    <form class="login-form">
-      <button type="button" onclick="window.location.href='login.html'">SIGN UP</button>
-    </form>
-  </div>
-</div>
-
-</body>
+    <div class="login-box">
+      <img src="img/logo.svg" class="avatar" alt="Avatar Image">
+      <h1>Login Here</h1>
+      <form>
+        <!-- USERNAME INPUT -->
+        <label for="username">Username</label>
+        <input type="text" placeholder="Enter Username">
+        <!-- PASSWORD INPUT -->
+        <label for="password">Password</label>
+        <input type="password" placeholder="Enter Password">
+        <input type="submit" value="Log In">
+        <a href="#">Lost your Password?</a><br>
+        <a href="#">Don't have An account?</a>
+      </form>
+    </div>
+  </body>
 </html>
