@@ -10,8 +10,16 @@ $(document).ready(function(){
         request.responseType = 'json';
         request.onload = function() {
             console.log(request.response);
+            if (request.status == 200)
+                {
+                    window.location.replace("https://felipearce.pw/dashboard.html");
+                }
+            else
+                {
+                    console.log("Error: " + request.status);
+                }
         };
         request.send();
-        return false;
+        return true;
     });
 });
