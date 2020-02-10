@@ -14,6 +14,9 @@ $(document).ready(function(){
             console.log(request.response);
             if (request.status == 200)
                 {
+                    var pic = document.getElementById("plot-img");
+                    var time = performance.now();
+                    pic.src = "imgs/plot.png?" + time;
                     $("#plot-section").show();
                 }
             else 
