@@ -2,24 +2,26 @@ $(document).ready(function(){
     $('#signup-submit').click(function(){
         var error = false;
         var user = document.getElementById("signup-user").value;
+        var email = document.getElementById("signup-email").value;
+        var pwd = document.getElementById("signup-pwd").value;
+        var pwdConf = document.getElementById("signup-pwd-conf").value;
         if (user == null || user == "")
             {
                 document.getElementById("error-text").innerHTML = "Username Missing";
                 error = true;
             }
-        var email = document.getElementById("signup-email").value;
+        
         else if (email == null || email == "")
             {
                 document.getElementById("error-text").innerHTML = "Email Missing";
                 error = true;
             }
-    	var pwd = document.getElementById("signup-pwd").value;
+    	
         else if (pwd == null || pwd == "")
             {
                 document.getElementById("error-text").innerHTML = "Password Missing";
                 error = true;
             }
-        var pwdConf = document.getElementById("signup-pwd-conf").value;
         else if (pwd.localeCompare(pwdConf))
             {
                 document.getElementById("error-text").innerHTML = "Passwords don't match";
