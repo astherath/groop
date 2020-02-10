@@ -4,6 +4,7 @@
 *.mod
 *.sum
 *.svg
+.DS_Store
 __pycache__/
 data_vis/run.sh
 
