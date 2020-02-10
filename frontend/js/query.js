@@ -1,6 +1,7 @@
 $(document).ready(function(){    
     $("#plot-section").hide();
     $('#query-submit').click(function(){
+        $("#plot-section").show();
         var word = document.getElementById("query-field").value;
         var raw = document.getElementById("raw-data").value;
         var endpoint = '?word=' + word + '&raw=' + raw;
@@ -17,7 +18,6 @@ $(document).ready(function(){
                     var pic = document.getElementById("plot-img");
                     var time = performance.now();
                     pic.src = "imgs/plot.png?" + time;
-                    $("#plot-section").show();
                 }
             else 
                 {
