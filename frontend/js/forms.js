@@ -2,13 +2,13 @@ $(document).ready(function(){
     $('#login-submit').click(function(){
         var error = false;
         var user = document.getElementById("login-user").value;
+    	var pwd = document.getElementById("login-pwd").value;
         if (user == null || user == "")
             {
                 document.getElementById("error-text").innerHTML = "Username Missing";
                 error = true;
             }
-    	var pwd = document.getElementById("login-pwd").value;
-        if (pwd == null || pwd == "")
+        else if (pwd == null || pwd == "")
             {
                 document.getElementById("error-text").innerHTML = "Password Missing";
                 error = true;
@@ -33,7 +33,7 @@ $(document).ready(function(){
                 {
                     document.getElementById("error-text").innerHTML = "Incorrect Password";
                 }
-            else
+            else if (request.status == 500)
                 {
                     document.getElementById("error-text").innerHTML = "Error, please try again in a few minutes";
                 }

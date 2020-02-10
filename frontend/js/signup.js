@@ -8,19 +8,19 @@ $(document).ready(function(){
                 error = true;
             }
         var email = document.getElementById("signup-email").value;
-        if (email == null || email == "")
+        else if (email == null || email == "")
             {
                 document.getElementById("error-text").innerHTML = "Email Missing";
                 error = true;
             }
     	var pwd = document.getElementById("signup-pwd").value;
-        if (pwd == null || pwd == "")
+        else if (pwd == null || pwd == "")
             {
                 document.getElementById("error-text").innerHTML = "Password Missing";
                 error = true;
             }
         var pwdConf = document.getElementById("signup-pwd-conf").value;
-        if (pwd.localeCompare(pwdConf))
+        else if (pwd.localeCompare(pwdConf))
             {
                 document.getElementById("error-text").innerHTML = "Passwords don't match";
                 error = true;
