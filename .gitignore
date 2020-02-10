@@ -10,6 +10,7 @@ data_vis/run.sh
 
 frontend/img
 frontend/imgs
+frontend/node-modules
 frontend/scss
 frontend/vendor
 frontend/dist
