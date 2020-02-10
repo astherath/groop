@@ -45,11 +45,14 @@ def login_user():
         print('exception:', e)
         return make_response({'Error': 'Invalid or missing input'}, 400)
     # lookup user in db and compare hashes
-    user = col.find_one({'useername': username}, {'_id': 0, 'pwd': 1})
+    user = col.find_one({'username': username}, {'_id': 0, 'pwd': 1})
+    # return 400 if user doesnt exist
+    if (user is None):
+        return make_request({'Error': 'User not found'}, 400)
     # hash pwd and compare
     match = bcrypt.checkpw(pwd.encode('utf-8'), user['pwd'])
 
     if match:
-        return make_response(jsonify({'login_successful': True}),200)
+        return make_response({'login_successful': True},200)
     else:
-        return make_response(jsonify({'login_successful': False}),400)
+        return make_response({'login_successful': False},400)
