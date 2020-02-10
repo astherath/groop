@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 import word_trend
 import pymongo
+from flask_cors import CORS
 from flask import Flask, jsonify, request, make_response
 
 # init flask app
 app = Flask(__name__)
+
+# enable CORS policy for flask instance
+CORS(app)
 
 # XXX dont forget to take this out in finished version
 app.config['DEBUG'] = False
