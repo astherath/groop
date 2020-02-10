@@ -1,9 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .body{
-  background-image: url('https://ordinaryfaith.net/wp-content/uploads/2016/03/Gray-plain-website-background.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: linear-gradient(to right, #FAA13B, #F3666D, #BE5D9C);
+}
+
+header.masthead {
+  position: relative;
+  width: 100%;
+  padding-top: 150px;
+  padding-bottom: 100px;
+  color: white;
+  background: #BE5D9C;
+  background: linear-gradient(to right, #FAA13B, #F3666D, #BE5D9C);
 }
 
 .login-page {
@@ -14,12 +22,11 @@
 .form {
   position: relative;
   z-index: 1;
-  background: #48c9b0;
+  background: #000000;
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
   text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 
 }
 .form input {
