@@ -19,15 +19,16 @@
       <h1><img src="icon-white.svg" style="height: 200px;"></h1>
       <form>
         <!-- USERNAME INPUT -->
+          <label id="error-text" class="error"><br></label>
         <label  for="username">Username</label>
-        <input id="signup-user" type="text" placeholder="Enter Username">
+        <input id="signup-user" type="text" placeholder="Enter Username" required>
           <label  for="username">Email</label>
-        <input id="signup-email" type="text" placeholder="Enter Email">
+        <input id="signup-email" type="email" placeholder="Enter Email" required>
         <!-- PASSWORD INPUT -->
         <label  for="password">Password</label>
-        <input id="signup-pwd" type="password" placeholder="Enter Password">
+        <input id="signup-pwd" type="password" placeholder="Enter Password" required>
           <label  for="password">Confirm Password</label>
-        <input id="signup-pwd-conf" type="password" placeholder="Enter Password Again">
+        <input id="signup-pwd-conf" type="password" placeholder="Enter Password Again" required>
         <input id="signup-submit" type="submit" value="Sign up" >
       </form>
           </div>

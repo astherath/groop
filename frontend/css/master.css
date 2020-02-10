@@ -1,3 +1,9 @@
+.error {
+    color: #932722;
+    font-style: italic;
+}
+
+
 .login-box {
   width: 480px;
   height: 720px;
@@ -30,7 +36,7 @@
   margin-bottom: 20px;
 }
 
-.login-box input[type="text"], .login-box input[type="password"] {
+.login-box input[type="text"], .login-box input[type="password"], .login-box input[type="email"] {
   border: none;
   border-bottom: 1px solid #fff;
   background: transparent;

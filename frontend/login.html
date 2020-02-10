@@ -19,11 +19,12 @@
       <h1><img src="icon-white.svg" style="height: 200px;"></h1>
       <form>
         <!-- USERNAME INPUT -->
+          <label id="error-text" class="error"><br></label>
         <label for="username">Username</label>
-        <input id="login-user" type="text" placeholder="Enter Username">
+        <input id="login-user" type="text" placeholder="Enter Username" required>
         <!-- PASSWORD INPUT -->
         <label for="password">Password</label>
-        <input id="login-pwd" type="password" placeholder="Enter Password">
+        <input id="login-pwd" type="password" placeholder="Enter Password" required>
           <div style="padding-bottom: 80px"></div>
         <input id="login-submit" type="submit" value="Log In">
       </form>
