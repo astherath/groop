@@ -2,10 +2,14 @@
 import word_trend
 import pymongo
 from flask_cors import CORS
+from user_ops.users import users
 from flask import Flask, jsonify, request, make_response
 
 # init flask app
 app = Flask(__name__)
+
+# register blueprint
+app.register_blueprint(users)
 
 # enable CORS policy for flask instance
 CORS(app)
