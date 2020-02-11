@@ -19,7 +19,7 @@ $(document).ready(function(){
                 document.getElementById("error-text").innerHTML = "Passwords don't match";
                 error = true;
             }
-        var endpoint = '?username=' + user + '&email=' + email + '&pwd=' + pwd;
+        var endpoint = '?username=' + user + '&pwd=' + pwd;
         var url = 'https://groop.pw:3000/signup' + endpoint;
         console.log(url)
         let request = new XMLHttpRequest();
