@@ -13,7 +13,7 @@ $(document).ready(function(){
                 document.getElementById("error-text").innerHTML = "Password Missing";
                 error = true;
             }
-        var url = 'https://felipearce.pw:3000/login?username=' + user + '&pwd=' + pwd;
+        var url = 'https://groop.pw:3000/login?username=' + user + '&pwd=' + pwd;
         console.log(url)
         let request = new XMLHttpRequest();
         request.open('GET', url, true);
@@ -23,7 +23,7 @@ $(document).ready(function(){
             console.log(request.response);
             if (request.status == 200 && !error)
                 {
-                    window.location.replace("https://felipearce.pw/dashboard.html");
+                    window.location.replace("https://groop.pw/dashboard.html");
                 }
             else if (request.status == 404 && !error)
                 {

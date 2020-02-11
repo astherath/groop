@@ -48,4 +48,4 @@ def find_message():
     return make_response(jsonify({'Success': 'Plot generated correctly'}), 200)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000, ssl_context=('/etc/letsencrypt/live/felipearce.pw/fullchain.pem', '/etc/letsencrypt/live/felipearce.pw/privkey.pem'))
+    app.run(host='0.0.0.0', port=3000, ssl_context=('/etc/letsencrypt/live/groop.pw/fullchain.pem', '/etc/letsencrypt/live/groop.pw/privkey.pem'))

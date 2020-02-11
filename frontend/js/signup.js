@@ -10,13 +10,13 @@ $(document).ready(function(){
                 document.getElementById("error-text").innerHTML = "Username Missing";
                 error = true;
             }
-        
+
         else if (email == null || email == "")
             {
                 document.getElementById("error-text").innerHTML = "Email Missing";
                 error = true;
             }
-    	
+
         else if (pwd == null || pwd == "")
             {
                 document.getElementById("error-text").innerHTML = "Password Missing";
@@ -28,7 +28,7 @@ $(document).ready(function(){
                 error = true;
             }
         var endpoint = '?username=' + user + '&email=' + email + '&pwd=' + pwd;
-        var url = 'https://felipearce.pw:3000/signup' + endpoint;
+        var url = 'https://groop.pw:3000/signup' + endpoint;
         console.log(url)
         let request = new XMLHttpRequest();
         request.open('POST', url, true);
@@ -39,7 +39,7 @@ $(document).ready(function(){
 
             if (request.status == 200 && !error)
                 {
-                    window.location.replace("https://felipearce.pw/dashboard.html");
+                    window.location.replace("https://groop.pw/dashboard.html");
                 }
             else
                 {

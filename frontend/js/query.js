@@ -1,11 +1,11 @@
-$(document).ready(function(){    
+$(document).ready(function(){
     $("#plot-section").hide();
     $('#query-submit').click(function(){
         $("#plot-section").show();
         var word = document.getElementById("query-field").value;
         var raw = document.getElementById("raw-data").value;
         var endpoint = '?word=' + word + '&raw=' + raw;
-        var url = 'https://felipearce.pw:3000/find' + endpoint;
+        var url = 'https://groop.pw:3000/find' + endpoint;
         console.log(url)
         let request = new XMLHttpRequest();
         request.open('GET', url, true);
@@ -19,7 +19,7 @@ $(document).ready(function(){
                     var time = performance.now();
                     pic.src = "imgs/plot.png?" + time;
                 }
-            else 
+            else
                 {
                     console.log("error:" + request.status);
                 }
