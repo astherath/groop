@@ -13,3 +13,7 @@ frontend/imgs
 frontend/scss
 frontend/vendor
 frontend/dist
+frontend/js/extention/
+frontend/js/new-age.js
+frontend/js/new-age.min.js
+frontend/js/query.js
