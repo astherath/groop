@@ -11,6 +11,10 @@ client = pymongo.MongoClient(URL)
 db = client.gc_data
 col = db.users
 
+# validation reqs
+USERNAME_MIN_LENGTH = 8
+PASSWORD_MIN_LENGTH = 8
+
 # method that creates a user with given params
 def create_user(username, pwd):
     user = {'username': username,
@@ -20,13 +24,37 @@ def create_user(username, pwd):
 
 @users.route('/signup', methods=['POST'])
 def register_user():
-    # parse args from request
+    # parse args from request and verify that input is safe
     try:
         username = request.args.get('username')
+    except Exception as e:
+        print('exception:', e)
+        return make_response(jsonify({'error': 'Invalid or missing username'}), 400)
+    try:
+        assert(username.isalnum())
+    except Exception as e:
+        print('exception:', e)
+        return make_response(jsonify({'error': 'Username should only contain letters and numbers'}), 400)
+    try:
+        assert(len(username) > USERNAME_MIN_LENGTH)
+    except Exception as e:
+        print('exception:', e)
+        return make_response(jsonify({'error': 'Username too short (Minimum ' + str(USERNAME_MIN_LENGTH) + ' characters)'}), 400)
+    try:
         pwd = request.args.get('pwd')
     except Exception as e:
         print('exception:', e)
-        return make_response(jsonify({'Missing': 'Invalid or missing input'}), 400)
+        return make_response(jsonify({'error': 'Invalid or missing password'}), 400)
+    try:
+        assert(len(pwd) > PASSWORD_MIN_LENGTH)
+    except Exception as e:
+        print('exception:', e)
+        return make_response(jsonify({'error': 'Password too short (Minimum ' + str(PASSWORD_MIN_LENGTH) + ' characters)'}), 400)
+    try:
+        assert(pwd.isalnum())
+    except Exception as e:
+        print('exception:', e)
+        return make_response(jsonify({'error': 'Password should only contain letters and numbers'}), 400)
     # check if user exists
     duplicate = (col.find_one({'username' : username}) is not None)
     if (not duplicate):
@@ -35,7 +63,7 @@ def register_user():
         col.insert_one(user)
         return make_response(jsonify({'created': True}), 200)
     else:
-        return make_response(jsonify({'created': False, 'duplicate': True}), 400)
+        return make_response(jsonify({'created': False, 'error': 'Username already in use'}), 400)
 
 
 @users.route('/login', methods=['GET'])

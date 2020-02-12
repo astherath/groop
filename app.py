@@ -34,8 +34,12 @@ def find_message():
     word = request.args.get('word')
     raw = request.args.get('raw')
     raw = (raw == 'true')
+    try:
+        assert(word.isalnum())
+    except Exception as e:
+        print(e)
+        return make_response(jsonify({'error': 'No special characters allowed in query'}), 400)
 
-    # TODO: add more validation here (look into a validation library maybe?)
     if word is None:
         return make_response(jsonify({'error': 'missing or invalid input'}), 400)
 
