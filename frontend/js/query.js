@@ -33,6 +33,8 @@ $(document).ready(function(){
                 }
             else
                 {
+					// var err = document.getElementById("error-alert");
+					// err.style = "display: content";
 					$("#error-alert").show();
                 }
         };

@@ -84,6 +84,6 @@ def login_user():
     match = bcrypt.checkpw(pwd.encode('utf-8'), user['pwd'])
 
     if match:
-        return make_response(jsonify({'sucess': True}),200)
+        return make_response(jsonify({'success': True}),200)
     else:
         return make_response(jsonify({'success': False}),400)
