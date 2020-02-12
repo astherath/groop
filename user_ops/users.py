@@ -1,4 +1,4 @@
-from flask import Blueprint, request, make_response
+from flask import Blueprint, request, make_response, jsonify
 import bcrypt
 import pymongo
 
@@ -12,10 +12,9 @@ db = client.gc_data
 col = db.users
 
 # method that creates a user with given params
-def create_user(username, pwd, email):
+def create_user(username, pwd):
     user = {'username': username,
-            'pwd': bcrypt.hashpw(pwd.encode('utf-8'), bcrypt.gensalt()),
-            'email': email}
+            'pwd': bcrypt.hashpw(pwd.encode('utf-8'), bcrypt.gensalt())}
     return user
 
 
@@ -25,14 +24,18 @@ def register_user():
     try:
         username = request.args.get('username')
         pwd = request.args.get('pwd')
-        email = request.args.get('email')
     except Exception as e:
         print('exception:', e)
-        return make_response({'Missing': 'Invalid or missing input'}, 400)
-    # make user
-    user = create_user(username, pwd, email)
-    col.insert_one(user)
-    return make_response({'User created': 'OK'}, 200)
+        return make_response(jsonify({'Missing': 'Invalid or missing input'}), 400)
+    # check if user exists
+    duplicate = (col.find_one({'username' : username}) is not None)
+    if (not duplicate):
+        # make user
+        user = create_user(username, pwd)
+        col.insert_one(user)
+        return make_response(jsonify({'created': True}), 200)
+    else:
+        return make_response(jsonify({'created': False, 'duplicate': True}), 400)
 
 
 @users.route('/login', methods=['GET'])
