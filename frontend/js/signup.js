@@ -9,9 +9,19 @@ $(document).ready(function(){
                 document.getElementById("error-text").innerHTML = "Username Missing";
                 error = true;
             }
+        else if (user.length < 8)
+            {
+                document.getElementById("error-text").innerHTML = "Username too short (8 characters minimum)";
+                error = true;
+            }
         else if (pwd == null || pwd == "")
             {
                 document.getElementById("error-text").innerHTML = "Password Missing";
+                error = true;
+            }
+        else if (pwd.length < 6)
+            {
+                document.getElementById("error-text").innerHTML = "Password too short (6 characters minimum)";
                 error = true;
             }
         else if (pwd.localeCompare(pwdConf))
@@ -33,16 +43,13 @@ $(document).ready(function(){
                 {
                     window.location.replace("https://groop.pw/dashboard.html");
                 }
+            else if (request.status != 500)
+                {
+                    document.getElementById("error-text").innerHTML = res.error;
+                }
             else
                 {
-                    if (res.duplicate)
-                        {
-                            document.getElementById("error-text").innerHTML = "Username already in use";
-                        }
-                    else
-                        {
-                            document.getElementById("error-text").innerHTML = "Server error, please try again";
-                        }
+                    document.getElementById("error-text").innerHTML = "Server error, please try again later";
                 }
         };
         if (!error)

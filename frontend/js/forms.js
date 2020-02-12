@@ -26,17 +26,13 @@ $(document).ready(function(){
                 {
                     window.location.replace("https://groop.pw/dashboard.html");
                 }
-            else if (request.status == 404 && !error)
+            else if (request.status != 500)
                 {
-                    document.getElementById("error-text").innerHTML = "User not found";
+                    document.getElementById("error-text").innerHTML = res.error;
                 }
-            else if (request.status == 400 && !error)
+            else
                 {
-                    document.getElementById("error-text").innerHTML = "Incorrect Password";
-                }
-            else if (request.status == 500 && !error)
-                {
-                    document.getElementById("error-text").innerHTML = "Error, please try again in a few minutes";
+                    document.getElementById("error-text").innerHTML = "Server error, please try again later";
                 }
         };
         if (!error)
