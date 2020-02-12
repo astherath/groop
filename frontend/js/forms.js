@@ -20,8 +20,9 @@ $(document).ready(function(){
         request.withCredentials = false;
         request.responseType = 'json';
         request.onload = function() {
-            console.log(request.response);
-            if (request.status == 200 && !error)
+            let res = request.response;
+            
+            if (request.status == 200 && !error && res.success)
                 {
                     window.location.replace("https://groop.pw/dashboard.html");
                 }
@@ -38,7 +39,10 @@ $(document).ready(function(){
                     document.getElementById("error-text").innerHTML = "Error, please try again in a few minutes";
                 }
         };
-        request.send();
+        if (!error)
+            {
+                request.send();
+            }
         return false;
     });
 });

@@ -27,18 +27,29 @@ $(document).ready(function(){
         request.withCredentials = false;
         request.responseType = 'json';
         request.onload = function() {
-            console.log(request.response);
+            let res = request.response;
 
-            if (request.status == 200 && !error)
+            if (request.status == 200 && !error && res.created)
                 {
                     window.location.replace("https://groop.pw/dashboard.html");
                 }
             else
                 {
-                    console.log("Error: " + request.status);
+                    if (res.duplicate)
+                        {
+                            document.getElementById("error-text").innerHTML = "Username already in use";
+                        }
+                    else
+                        {
+                            document.getElementById("error-text").innerHTML = "Server error, please try again";
+                        }
                 }
         };
-        request.send();
+        if (!error)
+            {
+                request.send();
+            }
+        
         return false;
     });
 
