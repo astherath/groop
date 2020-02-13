@@ -1,7 +1,6 @@
 $(document).ready(function(){
-		let query = function(){
+	let query = function(){
 		$("#error-alert").hide();
-        $("#plot-section").show();
 		var error = false;
         var word = document.getElementById("query-field").value;
         var raw = document.getElementById("raw-data").value;
@@ -23,11 +22,13 @@ $(document).ready(function(){
                     var pic = document.getElementById("plot-img");
                     var time = performance.now();
                     pic.src = "imgs/plot.png?" + time;
+        			$("#plot-section").show();
                 }
             else
                 {
 					// var err = document.getElementById("error-alert");
 					// err.style = "display: content";
+					$("#plot-section").hide();
 					$("#error-alert").show();
                 }
         	};
@@ -36,15 +37,16 @@ $(document).ready(function(){
 				request.send();
 			}
         return false;
-		};
+	};
 
-		$('#query-field').keydown(function(event){
-			if(event.keyCode == 13) {
-				event.preventDefault();
-				query();
-				return false;
-			}
-		});
-	    $("#plot-section").hide();
-		$('#query-submit').click(query);
+	$('#query-field').keydown(function(event){
+		if(event.keyCode == 13) {
+			event.preventDefault();
+			query();
+			return false;
+		}
+	});
+
+	$("#plot-section").hide();
+	$('#query-submit').click(query);
 });
