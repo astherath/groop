@@ -12,7 +12,7 @@ db = client.gc_data
 col = db.users
 
 # validation reqs
-USERNAME_MIN_LENGTH = 8
+USERNAME_MIN_LENGTH = 6
 PASSWORD_MIN_LENGTH = 8
 
 # method that creates a user with given params
@@ -36,7 +36,7 @@ def register_user():
         print('exception:', e)
         return make_response(jsonify({'error': 'Username should only contain letters and numbers'}), 400)
     try:
-        assert(len(username) > USERNAME_MIN_LENGTH)
+        assert(len(username) >= USERNAME_MIN_LENGTH)
     except Exception as e:
         print('exception:', e)
         return make_response(jsonify({'error': 'Username too short (Minimum ' + str(USERNAME_MIN_LENGTH) + ' characters)'}), 400)
@@ -46,15 +46,10 @@ def register_user():
         print('exception:', e)
         return make_response(jsonify({'error': 'Invalid or missing password'}), 400)
     try:
-        assert(len(pwd) > PASSWORD_MIN_LENGTH)
+        assert(len(pwd) >= PASSWORD_MIN_LENGTH)
     except Exception as e:
         print('exception:', e)
         return make_response(jsonify({'error': 'Password too short (Minimum ' + str(PASSWORD_MIN_LENGTH) + ' characters)'}), 400)
-    try:
-        assert(pwd.isalnum())
-    except Exception as e:
-        print('exception:', e)
-        return make_response(jsonify({'error': 'Password should only contain letters and numbers'}), 400)
     # check if user exists
     duplicate = (col.find_one({'username' : username}) is not None)
     if (not duplicate):
@@ -86,4 +81,4 @@ def login_user():
     if match:
         return make_response(jsonify({'success': True}),200)
     else:
-        return make_response(jsonify({'success': False}),400)
+        return make_response(jsonify({'success': False, 'error': 'Incorrect password'}),400)

@@ -13,15 +13,17 @@ $(document).ready(function(){
                 document.getElementById("error-text").innerHTML = "Password Missing";
                 error = true;
             }
+		pwd = btoa(pwd);
+		console.log(pwd);
         var url = 'https://groop.pw:3000/login?username=' + user + '&pwd=' + pwd;
-        console.log(url)
+        console.log(url);
         let request = new XMLHttpRequest();
         request.open('GET', url, true);
         request.withCredentials = false;
         request.responseType = 'json';
         request.onload = function() {
             let res = request.response;
-            
+
             if (request.status == 200 && !error && res.success)
                 {
                     window.location.replace("https://groop.pw/dashboard.html");

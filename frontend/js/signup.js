@@ -9,9 +9,9 @@ $(document).ready(function(){
                 document.getElementById("error-text").innerHTML = "Username Missing";
                 error = true;
             }
-        else if (user.length < 8)
+        else if (user.length < 6)
             {
-                document.getElementById("error-text").innerHTML = "Username too short (8 characters minimum)";
+                document.getElementById("error-text").innerHTML = "Username too short (6 characters minimum)";
                 error = true;
             }
         else if (pwd == null || pwd == "")
@@ -19,9 +19,9 @@ $(document).ready(function(){
                 document.getElementById("error-text").innerHTML = "Password Missing";
                 error = true;
             }
-        else if (pwd.length < 6)
+        else if (pwd.length < 8)
             {
-                document.getElementById("error-text").innerHTML = "Password too short (6 characters minimum)";
+                document.getElementById("error-text").innerHTML = "Password too short (8 characters minimum)";
                 error = true;
             }
         else if (pwd.localeCompare(pwdConf))
@@ -29,6 +29,7 @@ $(document).ready(function(){
                 document.getElementById("error-text").innerHTML = "Passwords don't match";
                 error = true;
             }
+		pwd = btoa(pwd);
         var endpoint = '?username=' + user + '&pwd=' + pwd;
         var url = 'https://groop.pw:3000/signup' + endpoint;
         console.log(url)
@@ -56,7 +57,7 @@ $(document).ready(function(){
             {
                 request.send();
             }
-        
+
         return false;
     });
 
