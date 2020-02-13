@@ -1,12 +1,5 @@
 $(document).ready(function(){
-		$('#query-field').keydown(function(event){
-			if(event.keyCode == 13) {
-				event.preventDefault();
-				return false;
-			}
-		});
-	    $("#plot-section").hide();
-		$('#query-submit').click(function(){
+		let query = function(){
 		$("#error-alert").hide();
         $("#plot-section").show();
 		var error = false;
@@ -37,11 +30,21 @@ $(document).ready(function(){
 					// err.style = "display: content";
 					$("#error-alert").show();
                 }
-        };
+        	};
 		if (!error)
 			{
 				request.send();
 			}
         return false;
-    });
+		};
+
+		$('#query-field').keydown(function(event){
+			if(event.keyCode == 13) {
+				event.preventDefault();
+				query();
+				return false;
+			}
+		});
+	    $("#plot-section").hide();
+		$('#query-submit').click(query);
 });
