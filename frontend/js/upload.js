@@ -4,6 +4,8 @@
 {
     // global vars
     var isTxt = false;
+    var error = false;
+    let url = 'https://groop.pw:3000/files/upload'
     // feature detection for drag&drop upload
     var isAdvancedUpload = function()
         {
@@ -95,6 +97,8 @@
         // if the form was submitted
         form.addEventListener( 'submit', function( e )
         {
+            // dont be redundant with the alert
+            $("#error-alert").hide();
             // preventing the duplicate submissions if the current one is in progress
             if( form.classList.contains( 'is-uploading' ) ) return false;
 
@@ -119,14 +123,18 @@
 
                 // ajax request
                 var ajax = new XMLHttpRequest();
-                ajax.open( form.getAttribute( 'method' ), form.getAttribute( 'action' ), true );
+                ajax.open( 'POST', url, true );
+                ajax.responseType = 'json';
                 console.log('url: ' + form.getAttribute( 'action' ))
 
                 ajax.onload = function()
                 {
+                    console.log(ajax.response);
                     form.classList.remove( 'is-uploading' );
                     if (!isTxt)
                         {
+                            document.getElementById("error-alert").innerHTML = "Please upload a .txt file.";
+                            document.getElementById("error-alert").style = ""
                             alert( 'Please upload a .txt file.' );
                         }
                     else if( ajax.status >= 200 && ajax.status < 400 && isTxt)
@@ -137,6 +145,9 @@
                     }
                     else
                         {
+                            console.log(ajax.response.error);
+                            document.getElementById("error-alert").innerHTML = "Error. Please, contact the webmaster!";
+                            $("#error-alert").show();
                             alert( 'Error. Please, contact the webmaster!' );
                         }
                     
@@ -145,6 +156,8 @@
                 ajax.onerror = function()
                 {
                     form.classList.remove( 'is-uploading' );
+                    document.getElementById("error-alert").innerHTML = "Error. Please, try again!";
+                    $("#error-alert").show();
                     alert( 'Error. Please, try again!' );
                 };
 
@@ -179,6 +192,8 @@
         // restart the form if has a state of error/success
         Array.prototype.forEach.call( restart, function( entry )
         {
+            // dont be redundant with the alert
+            $("#error-alert").hide();
             entry.addEventListener( 'click', function( e )
             {
                 e.preventDefault();
