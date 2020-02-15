@@ -3,13 +3,19 @@ import word_trend
 import pymongo
 from flask_cors import CORS
 from user_ops.users import users
+from file_ops.files import files
 from flask import Flask, jsonify, request, make_response
 
 # init flask app
 app = Flask(__name__)
 
-# register blueprint
+# add folder to hold the files
+UPLOAD_FOLDER = '/root/data_science_tests/file_ops'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# register blueprints
 app.register_blueprint(users)
+app.register_blueprint(files)
 
 # enable CORS policy for flask instance
 CORS(app)
