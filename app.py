@@ -4,10 +4,8 @@ import pymongo
 from flask_cors import CORS
 from user_ops.users import users
 from file_ops.files import files
+from instances import app
 from flask import Flask, jsonify, request, make_response
-
-# init flask app
-app = Flask(__name__)
 
 # add folder to hold the files
 UPLOAD_FOLDER = '/root/data_science_tests/file_ops'
