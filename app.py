@@ -21,7 +21,8 @@ app.register_blueprint(files)
 CORS(app)
 
 # XXX dont forget to take this out in finished version
-app.config['DEBUG'] = False
+#  app.config['DEBUG'] = False
+app.config['DEBUG'] = True
 
 # default error response
 @app.errorhandler(404)
