@@ -7,6 +7,7 @@ files = Blueprint('files', __name__)
 
 @files.route('/files/upload', methods=['POST'])
 def upload_file():
+    print(request.files)
     # check if the post request has the file part
     if 'file' not in request.files:
         resp = jsonify({'success': False, 'error' : 'No file part in the request'})
@@ -21,7 +22,7 @@ def upload_file():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         resp = jsonify({'success': True, 'message' : 'File successfully uploaded'})
-        resp.status_code = 200
+        resp.status_code = 201
         return resp
     else:
         resp = jsonify({'success': False, 'error' : 'Allowed file types are txt, pdf, png, jpg, jpeg, gif'})
