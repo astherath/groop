@@ -42,6 +42,7 @@ $(document).ready(function(){
 
             if (request.status == 200 && !error && res.created)
                 {
+                    let redirect = 
                     window.location.replace("https://groop.pw/dashboard.html");
                 }
             else if (request.status != 500)

@@ -141,6 +141,7 @@
                 var ajax = new XMLHttpRequest();
                 ajax.responseType = 'json';
                 ajax.open( form.getAttribute( 'method' ), url, true );
+                ajax.withCredentials = false;
                 console.log('url:' + url);
 
                 ajax.onload = function()
