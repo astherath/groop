@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    var url = document.location.href,
+        params = url.split('?').pop();
+    console.log('id = ', params);
+    
 	let query = function(){
 		$("#error-alert").hide();
 		var error = false;
