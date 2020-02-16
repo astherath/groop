@@ -8,6 +8,7 @@
 .DS_Store
 __pycache__/
 data_vis/run.sh
+file_ops/main
 
 frontend/img
 frontend/imgs

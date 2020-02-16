@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-pathname := ""
+var pathname string = ""
 
 type Message struct {
 	Date   string
@@ -34,9 +34,6 @@ func check(e error) {
 
 func ReadChatFile(path string) {
 	pathname = path
-	start := time.Now()
-	fmt.Println("Starting to process file now ...")
-
 	file, err := os.Open(pathname)
 	check(err)
 	defer file.Close()
@@ -58,7 +55,6 @@ func ReadChatFile(path string) {
 
 	writeMessage(messages)
 
-	elapsed := time.Since(start)
 }
 
 func writeMessage(messages []Message) {

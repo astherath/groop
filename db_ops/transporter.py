@@ -1,3 +1,4 @@
+import os
 import json
 import datetime
 import pymongo
@@ -5,6 +6,10 @@ import dateutil.parser
 from bson import ObjectId
 
 async def write_to_db(file_pathname, user_id):
+    # call Go method to write json file
+    command = 'go run main'
+    subprocess.run(
+
     # set instance vars for DB
     URL = 'mongodb://localhost:27017' # TODO: setup authentication for db
     client = pymongo.MongoClient(URL)
