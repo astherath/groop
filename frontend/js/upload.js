@@ -47,6 +47,7 @@
                 var event = document.createEvent( 'HTMLEvents' );
                 event.initEvent( 'submit', true, false );
                 form.dispatchEvent( event );
+                hideError();
             };
 
         // letting the server side to know we are going to make an Ajax request
@@ -104,6 +105,7 @@
         // if the form was submitted
         form.addEventListener( 'submit', function( e )
         {
+            hideError();
             // preventing the duplicate submissions if the current one is in progress
             if( form.classList.contains( 'is-uploading' ) ) return false;
 
@@ -115,25 +117,19 @@
 
                 // gathering the form data
                 var ajaxData = new FormData( form );
-                console.log('file: ', file);
-                console.log ('input name: ' , input.getAttribute( 'name' ));
                 if( droppedHandle )
                 {
-                    console.log('df(0): ' , droppedFiles.item(0));
                     ajaxData.set('file', droppedFiles.item(0));
                 }
                 else
                 {
                     ajaxData.append(input.getAttribute( 'name' ), file);
                 }
-                
-                console.log('ajaxData: ', ajaxData);
             
                 if (filename.localeCompare("") == 0)
                     {
                         error = true;
                         displayError("Please select a file to upload");
-                        console.log("here");
                     }
                 else if (filename.split('.').pop().localeCompare('txt') != 0)
                     {
@@ -149,11 +145,19 @@
 
                 ajax.onload = function()
                 {
+                    form.classList.remove( 'is-uploading' );
+                    
                     var res = ajax.response;
                     console.log(res);
-                    form.classList.remove( 'is-uploading' );
                     if( !res.success ) errorMsg.textContent = res.error;
-                    if( ajax.status >= 200 && ajax.status < 400 )
+                    
+                    if (res.success)
+                        {
+                            hideError();
+                            form.classList.add('is-success');
+                            console.log('success through res');
+                        }
+                    else if( ajax.status >= 200 && ajax.status < 400 )
                     {
                         var data = res;
                         form.classList.add( data.success == true ? 'is-success' : 'is-error' );
@@ -162,24 +166,44 @@
                                 errorMsg.textContent = data.error;
                                 displayError(data.error);
                             }
+                        else
+                            {
+                                hideError();
+                            }
                             
                     }
-                    else console.log('Error. Please, contact the webmaster!');
+                    else if (ajax.status == 500)
+                        {
+                            errorMsg.textContent = res.error;
+                            displayError("Server error, try again later.");
+                        }
+                    else
+                        {
+                            errorMsg.textContent = res.error;
+                            displayError(res.error);
+                        }
                 };
 
                 ajax.onerror = function()
                 {
                     form.classList.remove( 'is-uploading' );
                     console.log( 'Error. Please, try again!' );
+                    displayError('Error. Please, try again');
                 };
 
+                ajax.onabort = function()
+                {
+                    displayError('Error. Please check your internet conenction and try again');
+                }
+                hideError();
                 ajax.send( ajaxData );
+                
         });
 
         // restart the form if has a state of error/success
         Array.prototype.forEach.call( restart, function( entry )
         {
-            errorAlert.style = "display: none";
+            hideError();
             entry.addEventListener( 'click', function( e )
             {
                 e.preventDefault();
