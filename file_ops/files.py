@@ -1,4 +1,5 @@
 import os
+from bson import ObjectId
 from flask import request, Blueprint, make_response, jsonify
 from werkzeug.utils import secure_filename
 from instances import app
@@ -7,6 +8,16 @@ files = Blueprint('files', __name__)
 
 @files.route('/files/upload', methods=['POST'])
 def upload_file():
+    # get username
+    user_id = request.args.get('id')
+    # turn id to bson
+    try:
+        _id = ObjectId(user_id)
+    except Exception as e:
+        print(e)
+        resp = jsonify({'success': False, 'error': 'Invalid user token'})
+        resp.status_code = 400
+        return resp
     print(request.files)
     # check if the post request has the file part
     if 'file' not in request.files:
@@ -22,9 +33,9 @@ def upload_file():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         resp = jsonify({'success': True, 'message' : 'File successfully uploaded'})
-        resp.status_code = 201
+        resp.status_code = 200
         return resp
     else:
-        resp = jsonify({'success': False, 'error' : 'Allowed file types are txt, pdf, png, jpg, jpeg, gif'})
+        resp = jsonify({'success': False, 'error' : 'Only .txt files are allowed'})
         resp.status_code = 400
         return resp
