@@ -2,18 +2,19 @@ import json
 import datetime
 import pymongo
 import dateutil.parser
+from bson import ObjectId
 
-file_pathname = '../mains/message_test.json'
-
-def write_to_db(file_pathname):
+async def write_to_db(file_pathname, user_id):
     # set instance vars for DB
     URL = 'mongodb://localhost:27017' # TODO: setup authentication for db
     client = pymongo.MongoClient(URL)
     # TODO: update to support multiple users
     db = client.gc_data
     col = db.messages
+    # this array of messages will be equivalent to an entire gc file
+    message_list = []
 
-    # parse the json and add to the db
+    # returns date object from string
     def getDatetimeFromISO(s):
         d = dateutil.parser.parse(s)
         return d
@@ -22,4 +23,13 @@ def write_to_db(file_pathname):
         messages = json.load(f)
     for message in messages:
         message['Date'] = getDatetimeFromISO(message['Date'])
-    col.insert_many(messages)
+        # now add to message list
+        message_list.append(message)
+    # store message in db and save id
+    insert = col.insert_one(message_list)
+    file_id = insert.inserted_id
+    # store the id of this gc file on the user's document
+    try:
+        db.users.update({'_id': ObjectId(user_id)}, {'$set': {'gc_id': file_id}})
+    except Exception as e:
+        print(e)
