@@ -30,8 +30,13 @@ def upload_file():
         resp.status_code = 400
         return resp
     if file and file.filename[-3:] == 'txt':
-        filename = secure_filename(file.filename)
+        filename = secure_filename(user_id + '.txt')
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # call method to parse file and save it to the file db
+
+
+        # once file is in db, call method to process it
+
         resp = jsonify({'success': True, 'message' : 'File successfully uploaded'})
         resp.status_code = 200
         return resp
