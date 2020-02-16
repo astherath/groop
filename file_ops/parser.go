@@ -11,6 +11,8 @@ import (
 	"time"
 )
 
+pathname := ""
+
 type Message struct {
 	Date   string
 	Author string
@@ -30,7 +32,8 @@ func check(e error) {
 	}
 }
 
-func ReadChatFile(pathname string) {
+func ReadChatFile(path string) {
+	pathname = path
 	start := time.Now()
 	fmt.Println("Starting to process file now ...")
 
@@ -48,7 +51,6 @@ func ReadChatFile(pathname string) {
 		if !eof {
 			messages = append(messages, message)
 			i++
-			fmt.Println("have written: ", i, " lines of data so far")
 		}
 	}
 	err = s.Err()
@@ -57,12 +59,11 @@ func ReadChatFile(pathname string) {
 	writeMessage(messages)
 
 	elapsed := time.Since(start)
-	fmt.Println("Formatting the GC file took: ", elapsed)
 }
 
 func writeMessage(messages []Message) {
 	data, _ := json.MarshalIndent(messages, "", " ")
-	_ = ioutil.WriteFile("message_test.json", data, 0644)
+	_ = ioutil.WriteFile((pathname + ".json"), data, 0644)
 }
 
 func parseraw_message(raw_message string) (Message, bool) {
