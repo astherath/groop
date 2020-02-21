@@ -81,6 +81,8 @@ def login_user():
     match = bcrypt.checkpw(pwd.encode('utf-8'), user['pwd'])
 
     if match:
-        return make_response(jsonify({'success': True}),200)
+        # get user id to return
+        user_id = str(user.inserted_id)
+        return make_response(jsonify({'success': True, 'id': user_id}),200)
     else:
         return make_response(jsonify({'success': False, 'error': 'Incorrect password'}),400)
