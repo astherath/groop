@@ -42,8 +42,10 @@ $(document).ready(function(){
 
             if (request.status == 200 && !error && res.created)
                 {
-                    let redirect = 
-                    window.location.replace("https://groop.pw/dashboard.html");
+                    id = res.id;
+                    console.log('id: ', id);
+                    
+                    let redirect = window.location.replace("https://groop.pw/dashboard.html?" + id);
                 }
             else if (request.status != 500)
                 {

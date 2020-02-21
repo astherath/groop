@@ -139,9 +139,9 @@
 
                 // ajax request
                 var ajax = new XMLHttpRequest();
+                ajax.open('POST', url, true );
                 ajax.responseType = 'json';
                 ajax.withCredentials = false;
-                ajax.open('POST', url, true );
                 console.log('url:' + url);
 
                 ajax.onload = function()

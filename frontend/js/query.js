@@ -1,7 +1,6 @@
 $(document).ready(function(){
-    var url = document.location.href,
-        params = url.split('?').pop();
-    console.log('id = ', params);
+    var docUrl = document.location.href;
+    var userId = docUrl.split('?').pop();
     
 	let query = function(){
 		$("#error-alert").hide();
@@ -12,7 +11,7 @@ $(document).ready(function(){
 			{
 				error = true;
 			}
-        var endpoint = '?word=' + word + '&raw=' + raw;
+        var endpoint = '?word=' + word + '&raw=' + raw + '&id=' + userId;
         var url = 'https://groop.pw:3000/find' + endpoint;
         console.log(url)
         let request = new XMLHttpRequest();
