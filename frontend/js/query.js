@@ -1,6 +1,10 @@
 $(document).ready(function(){
     var docUrl = document.location.href;
     var userId = docUrl.split('?').pop();
+    if (userId == "" || userId == null)
+        {
+            let redirect = window.location.replace("https://groop.pw/login.html");
+        }
     
 	let query = function(){
 		$("#error-alert").hide();

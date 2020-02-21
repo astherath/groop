@@ -26,7 +26,8 @@ $(document).ready(function(){
 
             if (request.status == 200 && !error && res.success)
                 {
-                    window.location.replace("https://groop.pw/dashboard.html");
+                    let id = res.id;
+                    window.location.replace("https://groop.pw/dashboard.html?" + id);
                 }
             else if (request.status != 500)
                 {
