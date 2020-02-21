@@ -45,7 +45,7 @@ $(document).ready(function(){
                     id = res.id;
                     console.log('id: ', id);
                     
-                    window.location.replace("https://groop.pw/dashboard.html?" + id);
+                    window.location.replace("https://groop.pw/upload.html?" + id);
                 }
             else if (request.status != 500)
                 {

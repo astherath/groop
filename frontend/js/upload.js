@@ -2,7 +2,9 @@
 
 ;( function ( document, window, index )
 {
-    var url = "https://groop.pw:3000/files/upload";
+    var docUrl = document.location.href;
+    var userId = docUrl.split('?').pop();
+    var url = "https://groop.pw:3000/files/upload?" + userId;
     var errorAlert = document.getElementById("error-alert");
     var filename = "";
     var error = false;
@@ -157,6 +159,7 @@
                             hideError();
                             form.classList.add('is-success');
                             console.log('success through res');
+                            window.location.replace("https://groop.pw/dashboard.html?" + id);
                         }
                     else if( ajax.status >= 200 && ajax.status < 400 )
                     {
