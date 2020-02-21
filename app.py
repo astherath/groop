@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import word_trend
 import pymongo
+from bson import ObjectId
 from flask_cors import CORS
 from user_ops.users import users
 from file_ops.files import files
@@ -19,8 +20,8 @@ app.register_blueprint(files)
 CORS(app)
 
 # XXX dont forget to take this out in finished version
-#  app.config['DEBUG'] = False
-app.config['DEBUG'] = True
+app.config['DEBUG'] = False
+#  app.config['DEBUG'] = True
 
 # default error response
 @app.errorhandler(404)
@@ -38,19 +39,25 @@ def index():
 def find_message():
     word = request.args.get('word')
     raw = request.args.get('raw')
+    user_id = request.args.get('id')
     raw = (raw == 'true')
     try:
         assert(word.isalnum())
     except Exception as e:
         print(e)
         return make_response(jsonify({'error': 'No special characters allowed in query'}), 400)
+    try:
+        ObjectId(user_id)
+    except Exception as e:
+        print(e)
+        return make_response(jsonify({'error': 'Invalid path. Try to log in again.'}), 400)
 
     if word is None:
         return make_response(jsonify({'error': 'missing or invalid input'}), 400)
 
     # call actual plotting function that generates png and check for errors
     try:
-        word_trend.main_func(word, raw) # XXX: maybe add pathname of file here?
+        word_trend.main_func(word, raw, user_id) # XXX: maybe add pathname of file here?
     except:
         return make_response(jsonify({'Failure': 'Plot generated incorrectly'}), 500)
     # if no errors, send 200 ok

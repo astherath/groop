@@ -49,7 +49,8 @@ def find_word(word):
     return date_list
 
 # takes in a string (word), and a boolean (raw), and generates the plot
-def main_func(word, raw):
+def main_func(word, raw, user_id):
+
     # set size of plot initially
     fig = plt.figure(figsize=[10,6])
     # dates => dictionary with all days in chat history and how many times word was mentioned on that date

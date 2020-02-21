@@ -13,7 +13,9 @@ def upload_file():
     # turn id to bson
     try:
         _id = ObjectId(user_id)
+        assert(_id is not None)
     except Exception as e:
+        print('exception at id parsing')
         print(e)
         resp = jsonify({'success': False, 'error': 'Invalid user token'})
         resp.status_code = 400

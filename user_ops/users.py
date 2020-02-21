@@ -1,4 +1,5 @@
 from flask import Blueprint, request, make_response, jsonify
+from bson import ObjectId
 import bcrypt
 import pymongo
 
@@ -55,8 +56,9 @@ def register_user():
     if (not duplicate):
         # make user
         user = create_user(username, pwd)
-        col.insert_one(user)
-        return make_response(jsonify({'created': True}), 200)
+        insert = col.insert_one(user)
+        user_id = str(insert.inserted_id)
+        return make_response(jsonify({'created': True, 'id': user_id}), 200)
     else:
         return make_response(jsonify({'created': False, 'error': 'Username already in use'}), 400)
 
