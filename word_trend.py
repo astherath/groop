@@ -6,11 +6,11 @@ import numpy as np
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
-# initialize mongo instance and set global collection variables
+# global vars
 URL = 'mongodb://localhost:27017'
 client = pymongo.MongoClient(URL)
 db = client.gc_data
-col = db.messages
+
 
 #
 def measure_relevance(date_list):
@@ -50,7 +50,8 @@ def find_word(word):
 
 # takes in a string (word), and a boolean (raw), and generates the plot
 def main_func(word, raw, user_id):
-
+    # initialize mongo instance and set global collection variables
+    col = db.user_id
     # set size of plot initially
     fig = plt.figure(figsize=[10,6])
     # dates => dictionary with all days in chat history and how many times word was mentioned on that date
@@ -84,7 +85,7 @@ def main_func(word, raw, user_id):
     plt.xlabel('Time')
     plt.ylabel('Mentions')
 
-    # TODO: non-static filepath for serving multiple instances (use rand() to append metadata)
     # save to png with set dpi, and close plt
-    fig.savefig('frontend/imgs/plot.png',pdi=8000)
+    fig_pathname = 'frontend/imgs/' + user_id +'.png'
+    fig.savefig(fig_pathname,pdi=5000)
     plt.close()

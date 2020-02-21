@@ -32,7 +32,8 @@ def upload_file():
         resp.status_code = 400
         return resp
     if file and file.filename[-3:] == 'txt':
-        filename = secure_filename(user_id + '.txt')
+        file_pathname = user_id + '.txt'
+        filename = secure_filename(file_pathname)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         # call method to parse file and save it to the file db
 

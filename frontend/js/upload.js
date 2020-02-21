@@ -4,12 +4,12 @@
 {
     var docUrl = document.location.href;
     var userId = docUrl.split('?').pop();
-    var url = "https://groop.pw:3000/files/upload?" + userId;
+    var url = "https://groop.pw:3000/files/upload?id=" + userId;
     var errorAlert = document.getElementById("error-alert");
     var filename = "";
     var error = false;
     var droppedHandle = false;
-    
+
     // message functions for error alert
     var displayError = function (errorMessage)
     {
@@ -21,7 +21,7 @@
         errorAlert.style = "display: none;";
         errorAlert.innerHTML = "";
     }
-    
+
     // feature detection for drag&drop upload
     var isAdvancedUpload = function()
         {
@@ -101,7 +101,7 @@
 
                                 });
         }
-        
+
 
 
         // if the form was submitted
@@ -127,7 +127,7 @@
                 {
                     ajaxData.append(input.getAttribute( 'name' ), file);
                 }
-            
+
                 if (filename.localeCompare("") == 0)
                     {
                         error = true;
@@ -149,23 +149,23 @@
                 ajax.onload = function()
                 {
                     form.classList.remove( 'is-uploading' );
-                    
+
                     var res = ajax.response;
                     console.log(res);
                     if( !res.success ) errorMsg.textContent = res.error;
-                    
+
                     if (res.success)
                         {
                             hideError();
                             form.classList.add('is-success');
                             console.log('success through res');
-                            window.location.replace("https://groop.pw/dashboard.html?" + id);
+                            window.location.replace("https://groop.pw/dashboard.html?" + userId);
                         }
                     else if( ajax.status >= 200 && ajax.status < 400 )
                     {
                         var data = res;
                         form.classList.add( data.success == true ? 'is-success' : 'is-error' );
-                        if( !data.success  || error) 
+                        if( !data.success  || error)
                             {
                                 errorMsg.textContent = data.error;
                                 displayError(data.error);
@@ -174,7 +174,7 @@
                             {
                                 hideError();
                             }
-                            
+
                     }
                     else if (ajax.status == 500)
                         {
@@ -201,7 +201,7 @@
                 }
                 hideError();
                 ajax.send( ajaxData );
-                
+
         });
 
         // restart the form if has a state of error/success
