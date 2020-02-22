@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import word_trend
+from word_trend import main_func
 import pymongo
 from bson import ObjectId
 from flask_cors import CORS
@@ -57,8 +57,9 @@ def find_message():
 
     # call actual plotting function that generates png and check for errors
     try:
-        word_trend.main_func(word, raw, user_id) # XXX: maybe add pathname of file here?
-    except:
+        main_func(word, raw, user_id) # XXX: maybe add pathname of file here?
+    except Exception as e:
+        print(e)
         return make_response(jsonify({'Failure': 'Plot generated incorrectly'}), 500)
     # if no errors, send 200 ok
     return make_response(jsonify({'Success': 'Plot generated correctly'}), 200)

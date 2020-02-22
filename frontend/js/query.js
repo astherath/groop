@@ -5,7 +5,7 @@ $(document).ready(function(){
         {
             let redirect = window.location.replace("https://groop.pw/login.html");
         }
-    
+
 	let query = function(){
 		$("#error-alert").hide();
 		var error = false;
@@ -28,7 +28,7 @@ $(document).ready(function(){
                 {
                     var pic = document.getElementById("plot-img");
                     var time = performance.now();
-                    pic.src = "imgs/plot.png?" + time;
+                    pic.src = "imgs/" + userId + ".png?" + time;
         			$("#plot-section").show();
                 }
             else

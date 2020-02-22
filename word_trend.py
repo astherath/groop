@@ -11,13 +11,18 @@ URL = 'mongodb://localhost:27017'
 client = pymongo.MongoClient(URL)
 db = client.gc_data
 
-
-#
-def measure_relevance(date_list):
+def measure_relevance(date_list, col):
     # populate a list with every day from the first message to the most recent one
-    # TODO: parse first and last message dates instead of hardcoding it!!
-    m_date = datetime.datetime(2015, 7, 6, 23, 59, 59)
-    last = datetime.datetime(2020, 1, 18, 23, 59, 59)
+    try:
+        first_msg = col.find_one()
+        last_msg = col.find().sort([('$natural', -1)]).limit(1)[0]
+    except Exception as e:
+        print('cannot resolve first/last message')
+        print(e)
+        return
+    # get first date
+    m_date = first_msg['Date']
+    last = last_msg['Date']
     delta = (last - m_date).days
     master_dates = {}
     # populate dictionary with dates and default values of 0
@@ -33,8 +38,8 @@ def measure_relevance(date_list):
     return master_dates
 
 # db method that finds amount of times word was said and maps it to a dictionary with dates
-def find_word(word):
-    # using $text index, finds every time word was said and it's date
+def find_word(word, col):
+    # using $text index, find every time word was said and it's date
     docs = col.find({'$text': {'$search': word}}, {'_id': 0, 'Date': 1})
     date_list = {}
     # iterates through the messages and maps the times a word was said to a single date
@@ -45,17 +50,24 @@ def find_word(word):
         else:
             date_list[date] = date_list[date] + 1
     # calls measure_relevance method to update the date_list with ALL the dates, and returns it
-    date_list = measure_relevance(date_list)
+    date_list = measure_relevance(date_list, col)
     return date_list
 
 # takes in a string (word), and a boolean (raw), and generates the plot
 def main_func(word, raw, user_id):
     # initialize mongo instance and set global collection variables
-    col = db.user_id
+    col_name = 'b' + user_id
+    col = db[col_name]
+    print('col is:',col)
     # set size of plot initially
     fig = plt.figure(figsize=[10,6])
     # dates => dictionary with all days in chat history and how many times word was mentioned on that date
-    dates = find_word(word)
+    try:
+        dates = find_word(word, col)
+    except Exception as e:
+        print(e)
+        print('cannot generate datasets')
+        return
 
     # creates pd.DataFrame to plot with labels (instead of dict)
     df = pd.DataFrame(list(dates.items()), columns=['Date', 'Mentions'])

@@ -125,12 +125,15 @@ func classifySystemMessage(message string) (bool, string) {
 	image := strings.Contains(message, "image omitted")
 	audio := strings.Contains(message, "audio omitted")
 	video := strings.Contains(message, "video omitted")
+	created := strings.Contains(message, "You created group")
+	encryption := strings.Contains(message, "Messages to this group are now secured with end-to-end encryption")
 
 	if debug {
 		fmt.Println("len mess: ", len(strings.Split(message, " ")))
 		fmt.Println("rem?: ", strings.Contains(message, " removed "))
 		fmt.Println("add?: ", strings.Contains(message, " added "))
 		fmt.Println("left?: ", strings.Contains(message, " left"))
+		fmt.Println("created?: ", created)
 	}
 	sysMessage := strings.Contains(message, "changed the subject to") ||
 		strings.Contains(message, "You're now an admin") ||
@@ -138,7 +141,7 @@ func classifySystemMessage(message string) (bool, string) {
 		strings.Contains(message, "changed the group description") ||
 		strings.Contains(message, "deleted this group's icon") ||
 		strings.Contains(message, "changed their phone number to a new number. Tap to message or add the new number.") ||
-		removed || added || left || image || audio || video
+		removed || added || left || image || audio || video || created || encryption
 
 	if sysMessage {
 		return true, message
