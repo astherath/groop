@@ -23,6 +23,8 @@ const (
 	debug           = false
 	layoutWhatsapp  = "[01/02/06, 03:04:05 PM]"
 	layoutWhatsapp1 = "[01/02/06, 3:04:05 PM]"
+	layoutWhatsapp2 = "[01/02/06, 15:04:05]"
+	layoutWhatsapp3 = "[01/02/06, 15:04 05]"
 	layoutISO       = "2006-01-02T15:04:05-0700"
 )
 
@@ -119,14 +121,18 @@ func classifySystemMessage(message string) (bool, string) {
 	removed := len(strings.Split(message, " ")) == 3 &&
 		strings.Contains(message, " removed ")
 	added := len(strings.Split(message, " ")) == 3 &&
-		(strings.Contains(message, " added ") || strings.Contains(message, " was added"))
+		(strings.Contains(message, " added ") ||
+		strings.Contains(message, " was added")) ||
+		strings.Contains(message, "You were added") ||
+		strings.Contains(message, " added ")
 	left := len(strings.Split(message, " ")) == 2 &&
 		strings.Contains(message, " left")
 	image := strings.Contains(message, "image omitted")
 	audio := strings.Contains(message, "audio omitted")
 	video := strings.Contains(message, "video omitted")
-	created := strings.Contains(message, "You created group")
+	created := strings.Contains(message, "You created group") || strings.Contains(message, "created this group")
 	encryption := strings.Contains(message, "Messages to this group are now secured with end-to-end encryption")
+	misc := strings.Contains(message, "deleted the group description")
 
 	if debug {
 		fmt.Println("len mess: ", len(strings.Split(message, " ")))
@@ -140,7 +146,7 @@ func classifySystemMessage(message string) (bool, string) {
 		strings.Contains(message, "changed this group's icon") ||
 		strings.Contains(message, "changed the group description") ||
 		strings.Contains(message, "deleted this group's icon") ||
-		strings.Contains(message, "changed their phone number to a new number. Tap to message or add the new number.") ||
+		strings.Contains(message, "changed their phone number to a new number. Tap to message or add the new number.") || misc ||
 		removed || added || left || image || audio || video || created || encryption
 
 	if sysMessage {
@@ -170,14 +176,22 @@ func parseDate(date string) (string, error) {
 		fmt.Println("\ndate: ", date)
 	}
 	t, err := time.Parse(layoutWhatsapp, date)
-	check(err)
+	// check(err)
 	if err != nil {
-		t2, err2 := time.Parse(layoutWhatsapp1, date)
+		if debug {
+			fmt.Println("error with first parse, moving to second parser")
+			fmt.Println("error", err)
+		}
+		t2, err2 := time.Parse(layoutWhatsapp2, date)
 		if err2 != nil {
 			if debug {
 				fmt.Println("date: ", date, "original error: ", err, "new err: ", err2)
 			}
-			return t.String(), err
+			t3, err3 := time.Parse(layoutWhatsapp3, date)
+			if err3 != nil {
+				return t.String(), err
+			}
+			t2 = t3
 		}
 		t = t2
 	}
