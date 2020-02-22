@@ -1,7 +1,9 @@
 $(document).ready(function(){
     var docUrl = document.location.href;
     var userId = docUrl.split('?').pop();
-    if (userId == "" || userId == null)
+    console.log('userid is: ' , userId);
+    console.log('equal?: ' , (userId == docUrl));
+    if (userId == "" || userId == docUrl)
         {
             let redirect = window.location.replace("https://groop.pw/login.html");
         }

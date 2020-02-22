@@ -27,7 +27,15 @@ $(document).ready(function(){
             if (request.status == 200 && !error && res.success)
                 {
                     let id = res.id;
-                    window.location.replace("https://groop.pw/dashboard.html?" + id);
+                    let redirect = res.redirect;
+                    if (redirect)
+                        {
+                            window.location.replace("https://groop.pw/upload.html?" + id);
+                        }
+                    else
+                        {
+                            window.location.replace("https://groop.pw/dashboard.html?" + id);
+                        }
                 }
             else if (request.status != 500)
                 {
