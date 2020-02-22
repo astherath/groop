@@ -73,7 +73,7 @@ def login_user():
         print('exception:', e)
         return make_response(jsonify({'error': 'Invalid or missing input'}), 400)
     # lookup user in db and compare hashes
-    user = col.find_one({'username': username}, {'_id': 0, 'pwd': 1})
+    user = col.find_one({'username': username}, {'_id': 1, 'pwd': 1})
     # return 400 if user doesnt exist
     if (user is None):
         return make_response(jsonify({'error': 'User not found'}), 404)
@@ -81,8 +81,14 @@ def login_user():
     match = bcrypt.checkpw(pwd.encode('utf-8'), user['pwd'])
 
     if match:
+        redirect = False
         # get user id to return
-        user_id = str(user.inserted_id)
-        return make_response(jsonify({'success': True, 'id': user_id}),200)
+        user_id = str(user['_id'])
+        # check if they have a collection on file, if not, send to upload page
+        names = db.collection_names()
+        if (('b' + user_id) not in names):
+            redirect = True
+
+        return make_response(jsonify({'success': True, 'id': user_id, 'redirect': redirect}),200)
     else:
         return make_response(jsonify({'success': False, 'error': 'Incorrect password'}),400)

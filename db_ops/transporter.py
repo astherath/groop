@@ -11,7 +11,7 @@ def write_to_db(file_pathname, user_id):
     URL = 'mongodb://localhost:27017' # TODO: setup authentication for db
     client = pymongo.MongoClient(URL)
     db = client.gc_data
-    print('userid for colelction: ', user_id)
+    print('userid for collection: ', user_id)
     col_name = 'b' + user_id
     col = db[col_name]
 
@@ -29,6 +29,8 @@ def write_to_db(file_pathname, user_id):
     col.insert_many(messages)
     try:
         col.create_index([('Body', TEXT)], default_language='english')
+        # if all has gone well, delete file
+        os.remove(file_pathname)
     except Exception as e:
         print('cannot create index')
         print(e)
