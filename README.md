@@ -13,11 +13,11 @@ Web-based tool that can process, parse, and query a chat log file from a WhatsAp
 ## Project Structure
 
 - ### Frontend
- Clientside service was built with Reason using the BuckleScript JS compiler.
+ Clientside service was built with Bootstrap 4 and JS.
 - ### File processing
-Raw .txt formatter written in shell script, parser written in Go.
+Raw .txt formatter written in python, parser written in Go.
 - ### Backend Services
-Website served using Ubuntu + Nginx on a remote server. Serverside processes were written entirely in Python3. API endpoints written using Flask. Data visualizations and plots use Matplotlib and Pandas DataFrames, line of best fit uses Numpy.
+Website served using Nginx. Serverside processes were written entirely in Python3. API endpoints written using Flask. Data visualizations and plots use Matplotlib and Pandas DataFrames, line of best fit uses Numpy.
 - ### Database
 All data stored in a local MongoDB instance, using the Pymongo driver for queries and insertions. User passwords were hashed + salted using bcrypt.
 
