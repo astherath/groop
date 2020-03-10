@@ -118,15 +118,12 @@ func parseraw_message(raw_message string) (Message, bool) {
 }
 
 func classifySystemMessage(message string) (bool, string) {
-	removed := len(strings.Split(message, " ")) == 3 &&
-		strings.Contains(message, " removed ")
-	added := len(strings.Split(message, " ")) == 3 &&
-		(strings.Contains(message, " added ") ||
+	removed := strings.Contains(message, " removed ")
+	added := (strings.Contains(message, " added ") ||
 		strings.Contains(message, " was added")) ||
 		strings.Contains(message, "You were added") ||
 		strings.Contains(message, " added ")
-	left := len(strings.Split(message, " ")) == 2 &&
-		strings.Contains(message, " left")
+	left := strings.Contains(message, " left")
 	image := strings.Contains(message, "image omitted")
 	audio := strings.Contains(message, "audio omitted")
 	video := strings.Contains(message, "video omitted")
